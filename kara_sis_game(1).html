@@ -459,4 +459,297 @@
             },
             chapter11: {
                 title: "Bölüm 6 — Karanlık Gerçekler",
-                text: `Mahzende bulunan belgeler, şehrin üst düzey isimlerinin organize suçla bağlantısını ortaya çıkarıyordu. Efe sessizce fısıldadı: "Bu kadar
+                text: `Mahzende bulunan belgeler, şehrin üst düzey isimlerinin organize suçla bağlantısını ortaya çıkarıyordu. Efe sessizce fısıldadı: "Bu kadardeep büyük," dedi Efe. "Bu bilgiler yanlış ellere geçerse..."
+
+                Birden, mahzenin girişinde adım sesleri duyuldu.`,
+                choices: [
+                    { text: "Belgeleri hızlıca topla ve kaç.", next: "chapter12_escape" },
+                    { text: "Belgeleri fotoğrafla ve gizli çıkışı ara.", next: "chapter12_photo" },
+                    { text: "Karşılaşmaya hazırlan ve savaş.", next: "chapter12_fight" }
+                ]
+            },
+            chapter11_combat: {
+                title: "Savaş Sonrası",
+                text: `Çatışma sona erdiğinde, yaralı ekip üyesini güvenli bir yere taşıdınız. Odada bulunan belgeler büyük bir komplo ortaya çıkarıyordu.`,
+                next: "chapter12_wounded"
+            },
+            chapter11_documents: {
+                title: "Kritik Keşif",
+                text: `Mahzendeki belgeler şehrin en karanlık sırlarını içeriyordu. Bu bilgiler doğru kullanılırsa büyük bir adaletsizlik ortaya çıkacaktı.`,
+                next: "chapter12_revelation"
+            },
+            chapter11_victory: {
+                title: "Zafer",
+                text: `Güçlü girişinizin ardından, düşmanlarınızı alt etmeyi başardınız. Artık gerçeği ortaya çıkarmanın vakti gelmişti.`,
+                next: "chapter12_truth"
+            },
+            chapter11_difficult: {
+                title: "Zorlu Durum",
+                text: `Yaralı olmanıza rağmen önemli ipuçlarına ulaştınız. Artık son hamlenizi yapmanız gerekiyordu.`,
+                next: "chapter12_final_push"
+            },
+            chapter11_mystery: {
+                title: "Gizemli Oda",
+                text: `Bulduğunuz gizli odada, beklenmedik şeyler vardı. Bu oda, tüm olayların merkeziydi.`,
+                next: "chapter12_center"
+            },
+            chapter11_escape: {
+                title: "Kaçış Başarılı",
+                text: `Tuzaktan başarıyla kaçtıktan sonra, asıl hedefinize ulaştınız. Son mücadele başlamak üzereydi.`,
+                next: "chapter12_final"
+            },
+            chapter12_escape: {
+                title: "Son Kaçış",
+                text: `Belgeleri toplarken, arkadan gelen sesler yaklaşıyordu. Efe yaralı bacağıyla zorlukla yürüyordu.
+                
+                "Erdoğan, bu belgeler şehirdeki her şeyi değiştirecek," dedi Hasan. "Ama önce buradan çıkmalıyız."
+                
+                Gizli çıkıştan kaçmayı başardınız ama peşinizdeki gölgeler de vazgeçmiyordu.`,
+                next: "ending_escape"
+            },
+            chapter12_photo: {
+                title: "Dijital Kanıt",
+                text: `Hasan belgeleri hızlıca fotoğrafladı. Dijital kopyalar güvendeydi artık.
+                
+                "Gizli çıkış burada," dedi ve duvardaki gizli bir paneli açtı.
+                
+                Sessizce çıkmayı başardınız ve kanıtlar elinizde güvendeydi.`,
+                next: "ending_evidence"
+            },
+            chapter12_fight: {
+                title: "Son Savaş",
+                text: `Erdoğan silahını çekerek karşılaşmaya hazırlandı. Gelen kişi beklenmedik biriydi - şehrin eski emniyet müdürü.
+                
+                "Erdoğan, seni durdurmak için buradayım," dedi müdür.
+                
+                "Hayır," dedi Erdoğan. "Gerçek artık gün yüzüne çıkacak."
+                
+                Yoğun bir çatışma yaşandı ancak Erdoğan haklı davasını savundu.`,
+                next: "ending_justice"
+            },
+            chapter12_wounded: {
+                title: "Yaralı Ekip",
+                text: `Yaralı ekip üyenizi tedavi ettikten sonra, belgeleri inceleme şansınız oldu. İçlerinde şehrin en üst düzey yöneticilerinin suça karıştığını gösteren kanıtlar vardı.`,
+                next: "ending_revelation"
+            },
+            chapter12_revelation: {
+                title: "Büyük Açığa Çıkarma",
+                text: `Belgeler incelendiğinde, şehirdeki organize suç şebekesinin ne kadar derinlere uzandığı ortaya çıktı. Belediye başkanından polis şefine kadar herkes dahildi.`,
+                next: "ending_corruption"
+            },
+            chapter12_truth: {
+                title: "Gerçeğin Işığı",
+                text: `Güçlü bir şekilde elde ettiğiniz kanıtlarla, artık gerçeği dünyaya duyurma zamanı gelmişti. Basına ulaşarak büyük bir skandalı ortaya çıkardınız.`,
+                next: "ending_media"
+            },
+            chapter12_final_push: {
+                title: "Son Hamle",
+                text: `Yaranıza rağmen, kararlılığınızla son hamlenizi yaptınız. Bu bilgiler sayesinde şehirdeki karanlık ağı çökertme şansına sahiptiniz.`,
+                next: "ending_determined"
+            },
+            chapter12_center: {
+                title: "Merkezi Keşif",
+                text: `Gizli odanın merkezi olduğunu keşfettiniz. Burası tüm operasyonların planlandığı yerdi. Duvarlarda şehrin haritası ve hedef noktalar işaretlenmişti.`,
+                next: "ending_mastermind"
+            },
+            chapter12_final: {
+                title: "Final",
+                text: `Son mücadeleye hazırdınız. Elde ettiğiniz tüm kanıtlar ve yaşadığınız zorluklardan sonra, artık karanlık güçleri yenme zamanı gelmişti.`,
+                next: "ending_final_battle"
+            },
+
+            // SON BÖLÜMLER
+            ending_escape: {
+                title: "SON - Gölgelerden Kaçış",
+                text: `Malikâneden kaçmayı başardınız ancak gölgeler hâlâ peşinizdeydi. Belgeleri güvenli bir yere sakladınız ve planınızı uygulamaya koydunız. 
+
+                Birkaç gün sonra, medyaya sızdırdığınız bilgiler büyük bir skandal yarattı. Şehirdeki yolsuzluk ağı çöktü ancak bazı gölgeler hâlâ karanlıkta saklanıyordu.
+
+                Erdoğan, pencereden dışarı bakarken düşündü: "Bu savaş bitti ama gölgeler hiçbir zaman tamamen kaybolmaz. Onları beklemede olacağım."
+
+                <div class="ending-text">
+                <strong>🌫️ KAÇIŞ SONU 🌫️</strong><br>
+                Gölgelerden kaçmayı başardınız ancak savaş henüz bitmedi. Erdoğan ve ekibi, şehirdeki adaletsizliği ortaya çıkardı ama bazı sırlar hâlâ karanlıkta saklı kalıyor...
+                </div>`,
+                isEnding: true
+            },
+            ending_evidence: {
+                title: "SON - Dijital Adalet",
+                text: `Dijital kanıtlar sayesinde büyük bir hukuki süreç başladı. Hasan'ın teknoloji uzmanlığı, tüm suçluları yakalamak için kritik oldu.
+
+                Mahkemede sunulan kanıtlar o kadar güçlüydü ki, şehirdeki organize suç şebekesi tamamen çöktü. Erdoğan nihayet emekli olabilirdi.
+
+                "Teknoloji ve adalete olan inancımız bizi buraya getirdi," dedi Erdoğan son röportajında.
+
+                <div class="ending-text">
+                <strong>💾 TEKNOLOJİ SONU 💾</strong><br>
+                Dijital kanıtlar sayesinde adalet sağlandı. Erdoğan, Efe ve Hasan şehri karanlık güçlerden kurtarmayı başardı. Teknoloji ve ekip çalışması zafer kazandı!
+                </div>`,
+                isEnding: true
+            },
+            ending_justice: {
+                title: "SON - Adalet Zafer Kazandı",
+                text: `Son savaşta haklılığı savunan Erdoğan, yolsuz eski emniyet müdürünü alt etmeyi başardı. Çatışma sırasında tüm gerçekler ortaya çıktı.
+
+                Şehirdeki yolsuzluk ağının lideri yakalandı ve adalet tecelli etti. Erdoğan bir kahraman olarak emekli oldu.
+
+                "Adalet her zaman kazanır, sadece bazen biraz zaman alır," dedi Erdoğan.
+
+                <div class="ending-text">
+                <strong>⚖️ ADALET SONU ⚖️</strong><br>
+                Erdoğan cesur duruşuyla adaleti sağladı. Şehirdeki karanlık güçler yok edildi ve barış restore edildi. Gerçek bir kahraman hikayesi!
+                </div>`,
+                isEnding: true
+            },
+            ending_revelation: {
+                title: "SON - Büyük Açığa Çıkarma",
+                text: `Yaralı ekip üyesinin fedakarlığı boşuna gitmedi. Elde edilen belgeler sayesinde şehirdeki en büyük yolsuzluk skandalı ortaya çıktı.
+
+                Onlarca üst düzey yetkili tutuklandı ve şehir yeniden temiz bir yönetim altına girdi. Ekibin cesareti ve dayanışması zafer getirdi.
+
+                <div class="ending-text">
+                <strong>📜 AÇIĞA ÇIKARMA SONU 📜</strong><br>
+                Büyük fedakarlıklar sonucu gerçek ortaya çıktı. Şehirdeki yolsuzluk tamamen temizlendi ve adalet sağlandı. Ekip çalışması mükemmel sonuç verdi!
+                </div>`,
+                isEnding: true
+            },
+            ending_corruption: {
+                title: "SON - Yolsuzluğun Sonu",
+                text: `Belgeler incelendiğinde ortaya çıkan gerçek o kadar şoke ediciydi ki, şehirde büyük bir temizlik hareketi başladı.
+
+                Belediye başkanından polis şefine kadar onlarca kişi tutuklandı. Şehir tarihinin en büyük yolsuzluk davası açıldı.
+
+                Erdoğan, Efe ve Hasan'ın cesaretli çalışması sayesinde şehir yeniden doğdu.
+
+                <div class="ending-text">
+                <strong>🧹 TEMİZLİK SONU 🧹</strong><br>
+                Yolsuzluk ağı tamamen çöktü! Şehir büyük bir temizlik yaşadı ve artık dürüst insanlar yönetiyor. Karanlık günler sona erdi!
+                </div>`,
+                isEnding: true
+            },
+            ending_media: {
+                title: "SON - Medya Gücü",
+                text: `Basına sızdırılan belgeler büyük yankı uyandırdı. Ulusal medya konuyu aldı ve şehirdeki yolsuzluk tüm ülkeye duyuruldu.
+
+                Kamuoyu baskısıyla yetkililer istifa etmek zorunda kaldı ve yeni, temiz bir yönetim kuruldu.
+
+                "Basının gücü adaletten daha hızlı çalışabilir," dedi Efe.
+
+                <div class="ending-text">
+                <strong>📺 MEDYA SONU 📺</strong><br>
+                Medyanın gücü sayesinde hızlı bir adalet sağlandı. Tüm ülke şehirdeki kahramanlığı öğrendi ve yolsuzluk sona erdi!
+                </div>`,
+                isEnding: true
+            },
+            ending_determined: {
+                title: "SON - Kararlılık Zafer Kazandı",
+                text: `Yaranıza rağmen gösterdiğiniz kararlılık, tüm şehre ilham verdi. İnsanlar sizin hikayenizi duyunca, kendi haklarını savunmaya başladı.
+
+                Bireysel cesaret, toplumsal bir değişim hareketi başlattı. Şehir artık daha adil bir yerdi.
+
+                "Bazen bir kişinin kararlılığı, tüm şehri değiştirebilir," dedi Erdoğan.
+
+                <div class="ending-text">
+                <strong>💪 KARARLLIK SONU 💪</strong><br>
+                Kararlılığınız tüm şehre ilham verdi! Bireysel cesaretin toplumsal değişime yol açtığı nadir hikayelerden biri gerçekleşti!
+                </div>`,
+                isEnding: true
+            },
+            ending_mastermind: {
+                title: "SON - Baş Figürün Yakalanması",
+                text: `Gizli odada bulduğunuz harita ve planlar sayesinde, organize suç şebekesinin baş figürünü yakalamayı başardınız.
+
+                Bu kişi yakalandığında, tüm şebeke çöktü. Yıllarca şehri karanlıkta tutan kişi nihayet adalet önüne çıkarıldı.
+
+                Şehir artık gerçek anlamda özgürdü.
+
+                <div class="ending-text">
+                <strong>🎯 BAŞ FIGÜR SONU 🎯</strong><br>
+                Şebekenin lideri yakalandı! Yıllarca süren karanlık dönem sona erdi ve şehir nihayet özgürlüğüne kavuştu!
+                </div>`,
+                isEnding: true
+            },
+            ending_final_battle: {
+                title: "SON - Nihai Zafer",
+                text: `Son mücadelede tüm cesaretinizi ortaya koydunuz. Yaşadığınız zorluklar, kayıplar ve fedakarlıklar sonucu büyük zafer kazandınız.
+
+                Şehirdeki tüm karanlık güçler yok edildi. Erdoğan, Efe ve Hasan'ın hikayesi efsane oldu.
+
+                "Bu sadece bir zafer değil, yeni bir başlangıç," dedi Erdoğan son sözü olarak.
+
+                <div class="ending-text">
+                <strong>👑 NİHAİ ZAFER SONU 👑</strong><br>
+                Mükemmel bir zafer! Tüm zorluklara rağmen karanlık güçleri tamamen yok ettiniz. Şehrin kurtarıcıları olarak tarihe geçtiniz!
+                </div>`,
+                isEnding: true
+            }
+        };
+
+        function showDeveloper() {
+            document.getElementById('main-menu').style.display = 'none';
+            document.getElementById('developer-info').style.display = 'block';
+            document.getElementById('game-content').style.display = 'none';
+        }
+
+        function backToMenu() {
+            document.getElementById('main-menu').style.display = 'block';
+            document.getElementById('developer-info').style.display = 'none';
+            document.getElementById('game-content').style.display = 'none';
+        }
+
+        function startGame() {
+            document.getElementById('main-menu').style.display = 'none';
+            document.getElementById('developer-info').style.display = 'none';
+            document.getElementById('game-content').style.display = 'block';
+            
+            showChapter('prolog');
+        }
+
+        function showChapter(chapterName) {
+            const chapter = gameStory[chapterName];
+            if (!chapter) return;
+
+            const storySection = document.getElementById('story-section');
+            const choicesSection = document.getElementById('choices-section');
+
+            let html = '';
+            if (chapter.title) {
+                html += `<div class="chapter-title">${chapter.title}</div>`;
+            }
+            html += `<div class="story-text">${chapter.text}</div>`;
+
+            storySection.innerHTML = html;
+
+            // Seçenekleri göster
+            choicesSection.innerHTML = '';
+            
+            if (chapter.isEnding) {
+                // Oyun sonu - yeniden başlat butonu
+                choicesSection.innerHTML = '<button class="restart-button" onclick="restartGame()">Yeniden Başla</button>';
+            } else if (chapter.choices) {
+                // Seçenekler var
+                chapter.choices.forEach(choice => {
+                    const button = document.createElement('button');
+                    button.className = 'choice-button';
+                    button.textContent = choice.text;
+                    button.onclick = () => showChapter(choice.next);
+                    choicesSection.appendChild(button);
+                });
+            } else if (chapter.next) {
+                // Tek devam seçeneği
+                const button = document.createElement('button');
+                button.className = 'choice-button';
+                button.textContent = 'Devam Et';
+                button.onclick = () => showChapter(chapter.next);
+                choicesSection.appendChild(button);
+            }
+        }
+
+        function restartGame() {
+            currentChapter = 0;
+            gameState = {};
+            startGame();
+        }
+    </script>
+</body>
+</html>
