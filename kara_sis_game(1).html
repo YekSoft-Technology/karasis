@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kara Sis: Sisler Ardındaki Gölge</title>
+    <style>
+        body {
+            background-color: black;
+            color: red;
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .title {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(255, 0, 0, 0.3);
+        }
+        
+        .menu-button, .choice-button {
+            background-color: #330000;
+            color: red;
+            border: 2px solid red;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            border-radius: 5px;
+        }
+        
+        .menu-button:hover, .choice-button:hover {
+            background-color: #660000;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .game-content {
+            display: none;
+            text-align: left;
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+        
+        .chapter-title {
+            font-size: 1.5em;
+            color: #ff4444;
+            margin: 20px 0;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(255, 0, 0, 0.5);
+        }
+        
+        .developer-info {
+            background-color: #111;
+            border: 1px solid red;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+        }
+        
+        .choices {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .story-text {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #0a0a0a;
+            border-left: 3px solid red;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .back-button {
+            background-color: #440000;
+            color: red;
+            border: 1px solid red;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-family: inherit;
+            border-radius: 5px;
+        }
+        
+        .back-button:hover {
+            background-color: #660000;
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+        }
+
+        .ending-text {
+            background-color: #1a0000;
+            border: 2px solid #ff0000;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .restart-button {
+            background-color: #006600;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin: 10px;
+            font-family: inherit;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .restart-button:hover {
+            background-color: #008800;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="main-menu">
+            <h1 class="title">🕵️‍♂️ <strong>Kara Sis: Sisler Ardındaki Gölge</strong></h1>
+            <button class="menu-button" onclick="startGame()">Başla</button>
+            <button class="menu-button" onclick="showDeveloper()">Geliştirici</button>
+        </div>
+        
+        <div id="developer-info" style="display: none;">
+            <div class="developer-info">
+                <h2>Yek Soft Company</h2>
+                <p><strong>Sizi sırlarla dolu, karanlık ve gizemli bir dünyaya davet ediyoruz. **Kara Sis: Sisler Ardındaki Gölge**, izini kaybettiren sislerin ardında saklanan gizemleri çözmek için zeki ve cesur dedektiflerin hikayesini anlatan sürükleyici bir macera oyunu.</strong></p>
+                <p>Her adımda yeni ipuçları, her köşede bilinmezlik... Gölgelerin ardına saklanmış gerçekleri gün yüzüne çıkarabilecek misin? Hazır mısın, sislerin ardındaki gölgeyi aydınlatmaya?</p>
+                <p><strong>Geliştirici:</strong> Yekta Demirkol</p>
+                <button class="back-button" onclick="backToMenu()">Ana Menüye Dön</button>
+            </div>
+        </div>
+        
+        <div id="game-content" class="game-content">
+            <div id="story-section"></div>
+            <div id="choices-section" class="choices"></div>
+            <button class="back-button" onclick="backToMenu()">Ana Menüye Dön</button>
+        </div>
+    </div>
+
+    <script>
+        let currentChapter = 0;
+        let gameState = {};
+
+        const gameStory = {
+            prolog: {
+                title: "Prolog",
+                text: `Gece şehri sardığında, sadece karanlık değil; unutulmuş sırlar da gün yüzüne çıkar. Erdoğan, eski bir dedektif, artık bırakmak üzere olduğu mesleğine son bir şans vermek üzereydi. Ta ki Efe'den gelen o gizemli çağrıya kadar.`,
+                next: "chapter1"
+            },
+            chapter1: {
+                title: "Bölüm 1: Küller Altında",
+                text: `Telefonun sesi çaldı. Efe'nin sesi, buz gibi bir gecenin soğukluğu kadar keskin:
+                
+                "Erdoğan, işler karıştı. Hasan'dan aldığımız bilgiye göre, eski bir organize suç liderinin mezarı soyuldu. Sadece mezar değil, tüm mahalledeki gölgeler harekete geçti. Bu, basit bir soygun değil, daha derin bir hesaplaşma."
+                
+                Erdoğan, silahını kuşanırken düşündü: "Böyle işler kolay bitmez. Ama ben hazır olmalıyım."
+                
+                <strong>Malikânenin Önü</strong>
+                
+                Sisler içinde, terkedilmiş malikânenin kapısı önünde Efe ve Hasan bekliyordu. Hasan'ın gözleri, elektronik cihazlardan gelen verileri analiz ederken parıldıyordu.
+                
+                "Burası sadece bir giriş kapısı. Gerisi, her adımda seni öldürmeye çalışan gölgelerle dolu," dedi Hasan.`,
+                choices: [
+                    { text: "Kapıyı zorla açmaya çalış.", next: "chapter1_choice1" },
+                    { text: "Hasan'ın geliştirdiği şifre çözme cihazını kullan.", next: "chapter1_choice2" }
+                ]
+            },
+            chapter1_choice1: {
+                title: "Zorla Giriş",
+                text: `Erdoğan, soğukkanlılığını koruyarak kapıyı güç kullanarak açmayı denedi. Ancak güvenlik sistemi tetiklendi. Alarm sesi kısa sürede mahalleyi sardı. Dışarıdan adımlar hızla yaklaşıyordu.`,
+                next: "chapter2_danger"
+            },
+            chapter1_choice2: {
+                title: "Teknolojik Çözüm",
+                text: `Hasan, cihazını devreye soktu. Semboller ekranda hızla çözüldü ve kapı sessizce açıldı. Sessizce içeri girdiler.`,
+                next: "chapter2_safe"
+            },
+            chapter2_danger: {
+                title: "İçerideki Tehlike",
+                text: `Malikânenin içinde hareket eden gölgeler vardı. Efe hafifçe fısıldadı: "Dikkat, içerde sadece hayaletler değil, yaşayanlar da var."
+                
+                Alarm sesi hâlâ çalıyor, bu da durumu daha da tehlikeli hale getiriyordu.`,
+                choices: [
+                    { text: "Silahını hazırla, ilerle.", next: "chapter3_combat" },
+                    { text: "Gölgeleri dikkatle takip et, sessiz kal.", next: "chapter3_stealth" }
+                ]
+            },
+            chapter2_safe: {
+                title: "Sessiz İlerleme",
+                text: `Malikânenin içinde hareket eden gölgeler vardı. Efe hafifçe fısıldadı: "Dikkat, içerde sadece hayaletler değil, yaşayanlar da var."
+                
+                Sessizce girmenizin avantajıyla, daha dikkatli hareket edebiliyorsunuz.`,
+                choices: [
+                    { text: "Silahını hazırla, ilerle.", next: "chapter3_combat" },
+                    { text: "Gölgeleri dikkatle takip et, sessiz kal.", next: "chapter3_stealth_safe" }
+                ]
+            },
+            chapter3_combat: {
+                title: "Çatışma",
+                text: `Silahını çekip ilerlerken, aniden karşıdan iki adam belirdi. Kısa ve acımasız bir çatışma yaşandı. Erdoğan üstünlüğü ele geçirdi ama yaralandı.`,
+                next: "chapter4"
+            },
+            chapter3_stealth: {
+                title: "Gizlilik",
+                text: `Sessizce gölgeleri takip ederek ilerlediler. Çatışmadan kaçındılar ancak alarm sesi nedeniyle sürekli tehlike altındaydılar.`,
+                next: "chapter4"
+            },
+            chapter3_stealth_safe: {
+                title: "Mükemmel Gizlilik",
+                text: `Sessizce gölgeleri takip ederek ilerlediler. Çatışmadan kaçındılar ve gizli bir odaya ulaştılar. İçeride eski bir kasa vardı.`,
+                next: "chapter4_safe"
+            },
+            chapter4: {
+                title: "Kasayı Açmak",
+                text: `Hasan, kasanın üzerinde karmaşık bir dijital kilit gördü. Kasanın kodu, Hasan'ın cihazında şifrelenmiş eski bir mesajla ilişkilendirilmişti.`,
+                choices: [
+                    { text: "Hasan'dan kodu çözmesini bekle.", next: "chapter5_wait" },
+                    { text: "Efe ile birlikte kodu tahmin etmeye çalış.", next: "chapter5_guess" }
+                ]
+            },
+            chapter4_safe: {
+                title: "Güvenli Kasa",
+                text: `Hasan, kasanın üzerinde karmaşık bir dijital kilit gördü. Kasanın kodu, Hasan'ın cihazında şifrelenmiş eski bir mesajla ilişkilendirilmişti. 
+                
+                Sessizce girdiğiniz için daha fazla zamanınız var.`,
+                choices: [
+                    { text: "Hasan'dan kodu çözmesini bekle.", next: "chapter5_wait_safe" },
+                    { text: "Efe ile birlikte kodu tahmin etmeye çalış.", next: "chapter5_guess" }
+                ]
+            },
+            chapter5_wait: {
+                title: "Bölüm 2 — Kasanın Sırrı",
+                text: `Hasan, cihazındaki karmaşık algoritmalarla kasanın dijital kilidini çözmeye başladı. Efe ve Erdoğan ise odanın karanlığında sessizce bekliyordu. Her saniye, dışarıdaki gölgelerden gelecek bir saldırı ihtimalini artırıyordu.
+
+                "Bu kod, eski bir frekans şifresi," dedi Hasan, "aynı zamanda… bir tür sesli parola."
+
+                Hasan cihazdan gelen sinyalleri takip ederek birkaç dakika içinde kilidi çözdü. Kasanın kapağı yavaşça açıldı. İçinden eski, sararmış bir zarf ve gizemli bir USB çıktı.
+
+                "USB'yi hemen incelemeliyiz," dedi Hasan.
+
+                Fakat dışarıdan ağır adımlar yaklaşıyordu.`,
+                next: "chapter6"
+            },
+            chapter5_wait_safe: {
+                title: "Bölüm 2 — Kasanın Sırrı",
+                text: `Hasan, cihazındaki karmaşık algoritmalarla kasanın dijital kilidini çözmeye başladı. Efe ve Erdoğan ise odanın karanlığında sessizce bekliyordu.
+
+                "Bu kod, eski bir frekans şifresi," dedi Hasan, "aynı zamanda… bir tür sesli parola."
+
+                Hasan cihazdan gelen sinyalleri takip ederek birkaç dakika içinde kilidi çözdü. Kasanın kapağı yavaşça açıldı. İçinden eski, sararmış bir zarf ve gizemli bir USB çıktı.
+
+                "USB'yi hemen incelemeliyiz," dedi Hasan.
+
+                Sessizce girdiğiniz için kimse yaklaşmıyordu.`,
+                next: "chapter6_safe"
+            },
+            chapter5_guess: {
+                title: "Tahmin Oyunu",
+                text: `Efe etrafı kolaçan ederken bir karanlık figürün gölgesi kapının arkasında belirdi. Bir çatışma başladı! Erdoğan hızlıca ateş etti, Efe kaçmaya çalıştı. Ancak figür kayboldu.
+
+                "Bu oyunu biliyor," dedi Erdoğan. "Bizden bir adım önde."`,
+                next: "chapter6_danger"
+            },
+            chapter6: {
+                title: "Bölüm 3 — Geçmişin Yüzü",
+                text: `USB'yi Hasan'ın bilgisayarına taktınız. Dosyalar arasında eski video kayıtları ve şifreli mesajlar vardı. Videoda, şehrin eski yeraltı örgütünden bir liderin konuşması yer alıyordu.
+
+                "Bu adam geçmişin gölgesi," dedi Efe. "Bizimle hesaplaşmaya geliyor."`,
+                choices: [
+                    { text: "Videoyu dikkatlice incele ve gizli mesajları yakala.", next: "chapter7_analyze" },
+                    { text: "Hemen dışarı çık ve yardım iste.", next: "chapter7_help" }
+                ]
+            },
+            chapter6_safe: {
+                title: "Bölüm 3 — Geçmişin Yüzü (Güvenli)",
+                text: `USB'yi Hasan'ın bilgisayarına taktınız. Dosyalar arasında eski video kayıtları ve şifreli mesajlar vardı. Videoda, şehrin eski yeraltı örgütünden bir liderin konuşması yer alıyordu.
+
+                "Bu adam geçmişin gölgesi," dedi Efe. "Bizimle hesaplaşmaya geliyor."
+                
+                Güvende olduğunuz için daha rahat çalışabiliyorsunuz.`,
+                choices: [
+                    { text: "Videoyu dikkatlice incele ve gizli mesajları yakala.", next: "chapter7_analyze_safe" },
+                    { text: "Hemen dışarı çık ve yardım iste.", next: "chapter7_help" }
+                ]
+            },
+            chapter6_danger: {
+                title: "Bölüm 3 — Tehlikeli Keşif",
+                text: `Çatışma sonrası kasayı açmayı başardınız ancak içindeki USB hasar görmüştü. Hasan onu onarırken, dışarıdan gelen sesler artıyordu.
+
+                "Zaman daralıyor," dedi Efe. "Hızlı karar vermeliyiz."`,
+                choices: [
+                    { text: "USB'yi onarıp incelemeyi dene.", next: "chapter7_repair" },
+                    { text: "Hemen kaç ve daha sonra incele.", next: "chapter7_escape" }
+                ]
+            },
+            chapter7_analyze: {
+                title: "Analiz",
+                text: `Video kare kare incelendiğinde, ekranın köşesinde hızlıca geçen bir sayı dizisi fark edildi: "7-4-2-9-3". Bu diziyi bir sonraki bulmacanın kilidi olarak kullanabilirsin.`,
+                next: "chapter8"
+            },
+            chapter7_analyze_safe: {
+                title: "Detaylı Analiz",
+                text: `Video kare kare incelendiğinde, ekranın köşesinde hızlıca geçen bir sayı dizisi fark edildi: "7-4-2-9-3". Ayrıca güvenli ortamda daha fazla ayrıntı keşfettiniz: videoda gizli bir harita da vardı.`,
+                next: "chapter8_safe"
+            },
+            chapter7_help: {
+                title: "Yardım Arayışı",
+                text: `Dışarıda seni bekleyen ekip, beklenmedik bir şekilde yaralı ve çaresiz halde bulundu. "Çok geç kaldınız," dedi biri. "Gölge artık şehirde…"`,
+                next: "chapter8_danger"
+            },
+            chapter7_repair: {
+                title: "Onarım Çalışması",
+                text: `Hasan USB'yi onarmaya çalışırken, dışarıdaki tehlike artıyordu. Sonunda bazı verileri kurtarmayı başardınız ancak eksik bilgilerle devam etmek zorundaydınız.`,
+                next: "chapter8_incomplete"
+            },
+            chapter7_escape: {
+                title: "Kaçış",
+                text: `Hızlıca oradan ayrıldınız. Güvenli bir yere varınca USB'yi inceleyebildiniz ancak çok zaman kaybetmiştiniz.`,
+                next: "chapter8_late"
+            },
+            chapter8: {
+                title: "Bölüm 4 — Son Savaşın Kapısı",
+                text: `Artık geri dönüş yoktu. Malikânenin karanlık koridorlarında gölgelerle savaşıyor, şehrin karanlık sırlarına adım adım yaklaşıyordunuz. Efe yaralı, Hasan yanında ama teknolojiye rağmen tehlike her adımda büyüyordu.`,
+                choices: [
+                    { text: "Cesaretini topla ve doğrudan merkez odaya ilerle.", next: "chapter9_direct" },
+                    { text: "Sessizce çevreden dolan ve tuzakları atlat.", next: "chapter9_stealth" }
+                ]
+            },
+            chapter8_safe: {
+                title: "Bölüm 4 — Avantajlı İlerleme",
+                text: `Elde ettiğiniz ekstra bilgilerle daha avantajlı durumdaydınız. Harita sayesinde gizli geçitleri biliyordunuz. Efe yaralı değildi, ekip tam güçteydi.`,
+                choices: [
+                    { text: "Gizli geçitleri kullanarak ilerle.", next: "chapter9_secret" },
+                    { text: "Ana rotadan güçlü bir şekilde ilerle.", next: "chapter9_strong" }
+                ]
+            },
+            chapter8_danger: {
+                title: "Bölüm 4 — Zor Durum",
+                text: `Yardım ekibi yaralı olduğu için yalnızdınız. Malikânenin karanlık koridorlarında tek başınıza ilerliyordunuz.`,
+                choices: [
+                    { text: "Risk alarak hızlı ilerle.", next: "chapter9_risk" },
+                    { text: "Çok dikkatli ve yavaş ilerle.", next: "chapter9_careful" }
+                ]
+            },
+            chapter8_incomplete: {
+                title: "Eksik Bilgilerle İlerleme",
+                text: `Eksik bilgilerle ilerliyordunuz ancak en azından bir fikriniz vardı. Her adım bir risk taşıyordu.`,
+                next: "chapter9_uncertain"
+            },
+            chapter8_late: {
+                title: "Geç Kalma",
+                text: `Zaman kaybı nedeniyle düşmanlarınız sizi bekliyordu. Tuzağa düşmüş gibi hissediyordunuz.`,
+                next: "chapter9_trap"
+            },
+            chapter9_direct: {
+                title: "Bölüm 5 — Merkez Odadaki Yüzleşme",
+                text: `Erdoğan, Efe ve Hasan, malikânenin en derin odasına ulaştılar. Oda karanlıktı, ancak duvarda eski, tozlu bir tablo dikkat çekiyordu. Tabloda, şehrin geçmişine dair önemli bir ipucu gizlenmiş gibiydi.
+
+                Birden kapı sertçe kapandı. Odanın içine soğuk bir hava doldu.
+
+                "Bizi bekliyorlar," dedi Erdoğan. "Şimdi ya yüzleşeceğiz ya da kaybedeceğiz."`,
+                choices: [
+                    { text: "Tablodaki gizli sembolleri incele.", next: "chapter10_table" },
+                    { text: "Kapıyı zorla açmaya çalış.", next: "chapter10_door" },
+                    { text: "Hasan'dan gizli kapıyı aramasını iste.", next: "chapter10_secret_door" }
+                ]
+            },
+            chapter9_secret: {
+                title: "Gizli Geçitler",
+                text: `Harita sayesinde gizli geçitleri kullanarak doğrudan merkez odaya ulaştınız. Düşmanlarınız sizi beklemiyordu.`,
+                next: "chapter10_advantage"
+            },
+            chapter9_strong: {
+                title: "Güçlü İlerleme",
+                text: `Tam güçle ana rotadan ilerleyerek düşmanları şaşırttınız. Güçlü bir giriş yaptınız.`,
+                next: "chapter10_strong"
+            },
+            chapter9_risk: {
+                title: "Riskli İlerleme",
+                text: `Tek başınıza hızlı ilerlemeye çalışırken, birkaç tuzağa yakalandınız ancak çevikliğinizle kurtuldunuz.`,
+                next: "chapter10_wounded"
+            },
+            chapter9_careful: {
+                title: "Dikkatli İlerleme",
+                text: `Çok dikkatli ilerleyerek tuzakların çoğundan kaçındınız. Yavaş ama güvenli bir şekilde merkez odaya yaklaştınız.`,
+                next: "chapter10_safe_approach"
+            },
+            chapter9_uncertain: {
+                title: "Belirsizlik İçinde",
+                text: `Eksik bilgilerle ilerlerken, beklenmedik engellerle karşılaştınız. Her adım bir sürpriz barındırıyordu.`,
+                next: "chapter10_surprise"
+            },
+            chapter9_trap: {
+                title: "Tuzak",
+                text: `Beklendiğiniz gibi, düşmanlarınız sizi bekliyordu. Tuzağa düştüğünüzü anlayınca, hızlı düşünmeniz gerekti.`,
+                next: "chapter10_trapped"
+            },
+            chapter10_table: {
+                title: "Gizli Keşif",
+                text: `Tabloda ince bir çizgi fark ettin. Hafifçe dokunduğunda tablo kaydı ve arkasında küçük bir kasa ortaya çıktı. Kasanın üzerinde eski bir alfabe ile şifrelenmiş bir mesaj vardı.
+
+                Hasan hemen cihazını çıkardı ve çözmeye başladı.`,
+                next: "chapter11"
+            },
+            chapter10_door: {
+                title: "Zorlu Çatışma",
+                text: `Kapıyı zorlamak için güç kullandın ancak içerideki mekanizma alarmı tetikledi. Kısa süre içinde içeriye birkaç adam girdi. Zorlu bir çatışma başladı. Erdoğan ustaca hareket ederek avantaj sağladı ancak ekipten biri yaralandı.`,
+                next: "chapter11_combat"
+            },
+            chapter10_secret_door: {
+                title: "Gizli Geçit",
+                text: `Hasan odanın bir köşesinde gizli bir panel buldu. Paneli açtığında, gizli bir geçit ortaya çıktı. Geçidin sonunda eski bir mahzen vardı. Orada, olayların kilit noktası olan eski belgeler ve cihazlar duruyordu.`,
+                next: "chapter11_documents"
+            },
+            chapter10_advantage: {
+                title: "Avantajlı Pozisyon",
+                text: `Gizli geçitlerden gelerek düşmanları şaşırttınız. Merkez odayı kontrol altına aldınız ve önemli belgelere ulaştınız.`,
+                next: "chapter11_victory"
+            },
+            chapter10_strong: {
+                title: "Güçlü Giriş",
+                text: `Güçlü girişiniz düşmanları geri püskürttü. Merkez odayı kontrol altına alarak önemli ipuçlarına ulaştınız.`,
+                next: "chapter11_victory"
+            },
+            chapter10_wounded: {
+                title: "Yaralı İlerleme",
+                text: `Yaralı olmanıza rağmen merkez odaya ulaştınız. Durumunuz zor ama kararlılığınız sizi ayakta tutuyor.`,
+                next: "chapter11_difficult"
+            },
+            chapter10_safe_approach: {
+                title: "Güvenli Yaklaşım",
+                text: `Dikkatli yaklaşımınız meyvesini verdi. Merkez odaya güvenli bir şekilde ulaşarak durumu değerlendirme fırsatı buldunuz.`,
+                next: "chapter11"
+            },
+            chapter10_surprise: {
+                title: "Sürpriz Karşılaşma",
+                text: `Belirsizlik içinde ilerlerken, beklenmedik bir keşif yaptınız. Gizli bir oda buldunuz ama içinde neler olduğu belirsizdi.`,
+                next: "chapter11_mystery"
+            },
+            chapter10_trapped: {
+                title: "Tuzaktan Kaçış",
+                text: `Tuzağa düşmüş olsanız da, hızlı düşünce ve cesur harekelerle durumu tersine çevirmeyi başardınız.`,
+                next: "chapter11_escape"
+            },
+            chapter11: {
+                title: "Bölüm 6 — Karanlık Gerçekler",
+                text: `Mahzende bulunan belgeler, şehrin üst düzey isimlerinin organize suçla bağlantısını ortaya çıkarıyordu. Efe sessizce fısıldadı: "Bu kadar
