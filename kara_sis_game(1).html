@@ -154,602 +154,1373 @@
 
     <script>
         let currentChapter = 0;
-        let gameState = {};
+    let gameState = {};
 
-        const gameStory = {
-            prolog: {
-                title: "Prolog",
-                text: `Gece şehri sardığında, sadece karanlık değil; unutulmuş sırlar da gün yüzüne çıkar. Erdoğan, eski bir dedektif, artık bırakmak üzere olduğu mesleğine son bir şans vermek üzereydi. Ta ki Efe'den gelen o gizemli çağrıya kadar.`,
-                next: "chapter1"
-            },
-            chapter1: {
-                title: "Bölüm 1: Küller Altında",
-                text: `Telefonun sesi çaldı. Efe'nin sesi, buz gibi bir gecenin soğukluğu kadar keskin:
-                
-                "Erdoğan, işler karıştı. Hasan'dan aldığımız bilgiye göre, eski bir organize suç liderinin mezarı soyuldu. Sadece mezar değil, tüm mahalledeki gölgeler harekete geçti. Bu, basit bir soygun değil, daha derin bir hesaplaşma."
-                
-                Erdoğan, silahını kuşanırken düşündü: "Böyle işler kolay bitmez. Ama ben hazır olmalıyım."
-                
-                <strong>Malikânenin Önü</strong>
-                
-                Sisler içinde, terkedilmiş malikânenin kapısı önünde Efe ve Hasan bekliyordu. Hasan'ın gözleri, elektronik cihazlardan gelen verileri analiz ederken parıldıyordu.
-                
-                "Burası sadece bir giriş kapısı. Gerisi, her adımda seni öldürmeye çalışan gölgelerle dolu," dedi Hasan.`,
-                choices: [
-                    { text: "Kapıyı zorla açmaya çalış.", next: "chapter1_choice1" },
-                    { text: "Hasan'ın geliştirdiği şifre çözme cihazını kullan.", next: "chapter1_choice2" }
-                ]
-            },
-            chapter1_choice1: {
-                title: "Zorla Giriş",
-                text: `Erdoğan, soğukkanlılığını koruyarak kapıyı güç kullanarak açmayı denedi. Ancak güvenlik sistemi tetiklendi. Alarm sesi kısa sürede mahalleyi sardı. Dışarıdan adımlar hızla yaklaşıyordu.`,
-                next: "chapter2_danger"
-            },
-            chapter1_choice2: {
-                title: "Teknolojik Çözüm",
-                text: `Hasan, cihazını devreye soktu. Semboller ekranda hızla çözüldü ve kapı sessizce açıldı. Sessizce içeri girdiler.`,
-                next: "chapter2_safe"
-            },
-            chapter2_danger: {
-                title: "İçerideki Tehlike",
-                text: `Malikânenin içinde hareket eden gölgeler vardı. Efe hafifçe fısıldadı: "Dikkat, içerde sadece hayaletler değil, yaşayanlar da var."
-                
-                Alarm sesi hâlâ çalıyor, bu da durumu daha da tehlikeli hale getiriyordu.`,
-                choices: [
-                    { text: "Silahını hazırla, ilerle.", next: "chapter3_combat" },
-                    { text: "Gölgeleri dikkatle takip et, sessiz kal.", next: "chapter3_stealth" }
-                ]
-            },
-            chapter2_safe: {
-                title: "Sessiz İlerleme",
-                text: `Malikânenin içinde hareket eden gölgeler vardı. Efe hafifçe fısıldadı: "Dikkat, içerde sadece hayaletler değil, yaşayanlar da var."
-                
-                Sessizce girmenizin avantajıyla, daha dikkatli hareket edebiliyorsunuz.`,
-                choices: [
-                    { text: "Silahını hazırla, ilerle.", next: "chapter3_combat" },
-                    { text: "Gölgeleri dikkatle takip et, sessiz kal.", next: "chapter3_stealth_safe" }
-                ]
-            },
-            chapter3_combat: {
-                title: "Çatışma",
-                text: `Silahını çekip ilerlerken, aniden karşıdan iki adam belirdi. Kısa ve acımasız bir çatışma yaşandı. Erdoğan üstünlüğü ele geçirdi ama yaralandı.`,
-                next: "chapter4"
-            },
-            chapter3_stealth: {
-                title: "Gizlilik",
-                text: `Sessizce gölgeleri takip ederek ilerlediler. Çatışmadan kaçındılar ancak alarm sesi nedeniyle sürekli tehlike altındaydılar.`,
-                next: "chapter4"
-            },
-            chapter3_stealth_safe: {
-                title: "Mükemmel Gizlilik",
-                text: `Sessizce gölgeleri takip ederek ilerlediler. Çatışmadan kaçındılar ve gizli bir odaya ulaştılar. İçeride eski bir kasa vardı.`,
-                next: "chapter4_safe"
-            },
-            chapter4: {
-                title: "Kasayı Açmak",
-                text: `Hasan, kasanın üzerinde karmaşık bir dijital kilit gördü. Kasanın kodu, Hasan'ın cihazında şifrelenmiş eski bir mesajla ilişkilendirilmişti.`,
-                choices: [
-                    { text: "Hasan'dan kodu çözmesini bekle.", next: "chapter5_wait" },
-                    { text: "Efe ile birlikte kodu tahmin etmeye çalış.", next: "chapter5_guess" }
-                ]
-            },
-            chapter4_safe: {
-                title: "Güvenli Kasa",
-                text: `Hasan, kasanın üzerinde karmaşık bir dijital kilit gördü. Kasanın kodu, Hasan'ın cihazında şifrelenmiş eski bir mesajla ilişkilendirilmişti. 
-                
-                Sessizce girdiğiniz için daha fazla zamanınız var.`,
-                choices: [
-                    { text: "Hasan'dan kodu çözmesini bekle.", next: "chapter5_wait_safe" },
-                    { text: "Efe ile birlikte kodu tahmin etmeye çalış.", next: "chapter5_guess" }
-                ]
-            },
-            chapter5_wait: {
-                title: "Bölüm 2 — Kasanın Sırrı",
-                text: `Hasan, cihazındaki karmaşık algoritmalarla kasanın dijital kilidini çözmeye başladı. Efe ve Erdoğan ise odanın karanlığında sessizce bekliyordu. Her saniye, dışarıdaki gölgelerden gelecek bir saldırı ihtimalini artırıyordu.
+    const gameStory = {
+        prolog: {
+            title: "Prolog",
+            text: `Gece şehri sardığında, sadece karanlık değil; unutulmuş sırlar da gün yüzüne çıkar. Erdoğan, eski bir dedektif, artık bırakmak üzere olduğu mesleğine son bir şans vermek üzereydi. Ta ki Efe'den gelen o gizemli çağrıya kadar.`,
+            next: "chapter1"
+        },
+        chapter1: {
+            title: "Bölüm 1: Küller Altında",
+            text: `Telefonun sesi çaldı. Efe'nin sesi, buz gibi bir gecenin soğukluğu kadar keskin:
 
-                "Bu kod, eski bir frekans şifresi," dedi Hasan, "aynı zamanda… bir tür sesli parola."
+            "Erdoğan, işler karıştı. Hasan'dan aldığımız bilgiye göre, eski bir organize suç liderinin mezarı soyuldu. Sadece mezar değil, tüm mahalledeki gölgeler harekete geçti. Bu, basit bir soygun değil, daha derin bir hesaplaşma."
 
-                Hasan cihazdan gelen sinyalleri takip ederek birkaç dakika içinde kilidi çözdü. Kasanın kapağı yavaşça açıldı. İçinden eski, sararmış bir zarf ve gizemli bir USB çıktı.
+            Erdoğan, silahını kuşanırken düşündü: "Böyle işler kolay bitmez. Ama ben hazır olmalıyım."
 
-                "USB'yi hemen incelemeliyiz," dedi Hasan.
+            <strong>Malikânenin Önü</strong>
 
-                Fakat dışarıdan ağır adımlar yaklaşıyordu.`,
-                next: "chapter6"
-            },
-            chapter5_wait_safe: {
-                title: "Bölüm 2 — Kasanın Sırrı",
-                text: `Hasan, cihazındaki karmaşık algoritmalarla kasanın dijital kilidini çözmeye başladı. Efe ve Erdoğan ise odanın karanlığında sessizce bekliyordu.
+            Sisler içinde, terkedilmiş malikânenin kapısı önünde Efe ve Hasan bekliyordu. Hasan'ın gözleri, elektronik cihazlardan gelen verileri analiz ederken parıldıyordu.
 
-                "Bu kod, eski bir frekans şifresi," dedi Hasan, "aynı zamanda… bir tür sesli parola."
+            "Burası sadece bir giriş kapısı. Gerisi, her adımda seni öldürmeye çalışan gölgelerle dolu," dedi Hasan.`,
+            choices: [
+                { text: "Kapıyı zorla açmaya çalış.", next: "chapter1_choice1" },
+                { text: "Hasan'ın geliştirdiği şifre çözme cihazını kullan.", next: "chapter1_choice2" }
+            ]
+        },
+        chapter1_choice1: {
+            title: "Zorla Giriş",
+            text: `Erdoğan, soğukkanlılığını koruyarak kapıyı güç kullanarak açmayı denedi. Ancak güvenlik sistemi tetiklendi. Alarm sesi kısa sürede mahalleyi sardı. Dışarıdan adımlar hızla yaklaşıyordu.`,
+            next: "chapter2_danger"
+        },
+        chapter1_choice2: {
+            title: "Teknolojik Çözüm",
+            text: `Hasan, cihazını devreye soktu. Semboller ekranda hızla çözüldü ve kapı sessizce açıldı. Sessizce içeri girdiler.`,
+            next: "chapter2_safe"
+        },
+        chapter2_danger: {
+            title: "İçerideki Tehlike",
+            text: `Malikânenin içinde hareket eden gölgeler vardı. Efe hafifçe fısıldadı: "Dikkat, içerde sadece hayaletler değil, yaşayanlar da var."
 
-                Hasan cihazdan gelen sinyalleri takip ederek birkaç dakika içinde kilidi çözdü. Kasanın kapağı yavaşça açıldı. İçinden eski, sararmış bir zarf ve gizemli bir USB çıktı.
+            Alarm sesi hâlâ çalıyor, bu da durumu daha da tehlikeli hale getiriyordu.`,
+            choices: [
+                { text: "Silahını hazırla, ilerle.", next: "chapter3_combat" },
+                { text: "Gölgeleri dikkatle takip et, sessiz kal.", next: "chapter3_stealth" }
+            ]
+        },
+        chapter2_safe: {
+            title: "Sessiz İlerleme",
+            text: `Malikânenin içinde hareket eden gölgeler vardı. Efe hafifçe fısıldadı: "Dikkat, içerde sadece hayaletler değil, yaşayanlar da var."
 
-                "USB'yi hemen incelemeliyiz," dedi Hasan.
+            Sessizce girmenizin avantajıyla, daha dikkatli hareket edebiliyorsunuz.`,
+            choices: [
+                { text: "Silahını hazırla, ilerle.", next: "chapter3_combat" },
+                { text: "Gölgeleri dikkatle takip et, sessiz kal.", next: "chapter3_stealth_safe" }
+            ]
+        },
+        chapter3_combat: {
+            title: "Çatışma",
+            text: `Silahını çekip ilerlerken, aniden karşıdan iki adam belirdi. Kısa ve acımasız bir çatışma yaşandı. Erdoğan üstünlüğü ele geçirdi ama hafif yaralandı. Ekip hızla ilerlemeye devam etti.`,
+            next: "chapter4"
+        },
+        chapter3_stealth: {
+            title: "Gizlilik",
+            text: `Sessizce gölgeleri takip ederek ilerlediler. Çatışmadan kaçındılar ancak alarm sesi nedeniyle sürekli tetikteydiler. Malikânenin derinliklerinden gelen sesler artıyordu.`,
+            next: "chapter4"
+        },
+        chapter3_stealth_safe: {
+            title: "Mükemmel Gizlilik",
+            text: `Sessizce gölgeleri takip ederek ilerlediler. Hiçbir çatışmaya girmeden gizli bir odaya ulaştılar. İçeride eski, metal bir kasa vardı.`,
+            next: "chapter4_safe"
+        },
+        chapter4: {
+            title: "Kasayı Açmak",
+            text: `Hasan, kasanın üzerinde karmaşık bir dijital kilit gördü. Kasanın kodu, Hasan'ın cihazında şifrelenmiş eski bir mesajla ilişkilendirilmişti. Dışarıdan gelen sesler yaklaşıyordu.`,
+            choices: [
+                { text: "Hasan'dan kodu çözmesini bekle.", next: "chapter5_wait" },
+                { text: "Efe ile birlikte kodu tahmin etmeye çalış.", next: "chapter5_guess" }
+            ]
+        },
+        chapter4_safe: {
+            title: "Güvenli Kasa",
+            text: `Hasan, kasanın üzerinde karmaşık bir dijital kilit gördü. Kasanın kodu, Hasan'ın cihazında şifrelenmiş eski bir mesajla ilişkilendirilmişti.
 
-                Sessizce girdiğiniz için kimse yaklaşmıyordu.`,
-                next: "chapter6_safe"
-            },
-            chapter5_guess: {
-                title: "Tahmin Oyunu",
-                text: `Efe etrafı kolaçan ederken bir karanlık figürün gölgesi kapının arkasında belirdi. Bir çatışma başladı! Erdoğan hızlıca ateş etti, Efe kaçmaya çalıştı. Ancak figür kayboldu.
+            Sessizce girdiğiniz için daha fazla zamanınız var.`,
+            choices: [
+                { text: "Hasan'dan kodu çözmesini bekle.", next: "chapter5_wait_safe" },
+                { text: "Efe ile birlikte kodu tahmin etmeye çalış.", next: "chapter5_guess" }
+            ]
+        },
+        chapter5_wait: {
+            title: "Bölüm 2 — Kasanın Sırrı",
+            text: `Hasan, cihazındaki karmaşık algoritmalarla kasanın dijital kilidini çözmeye başladı. Efe ve Erdoğan ise odanın karanlığında sessizce bekliyordu. Her saniye, dışarıdaki gölgelerden gelecek bir saldırı ihtimalini artırıyordu.
 
-                "Bu oyunu biliyor," dedi Erdoğan. "Bizden bir adım önde."`,
-                next: "chapter6_danger"
-            },
-            chapter6: {
-                title: "Bölüm 3 — Geçmişin Yüzü",
-                text: `USB'yi Hasan'ın bilgisayarına taktınız. Dosyalar arasında eski video kayıtları ve şifreli mesajlar vardı. Videoda, şehrin eski yeraltı örgütünden bir liderin konuşması yer alıyordu.
+            "Bu kod, eski bir frekans şifresi," dedi Hasan, "aynı zamanda… bir tür sesli parola."
 
-                "Bu adam geçmişin gölgesi," dedi Efe. "Bizimle hesaplaşmaya geliyor."`,
-                choices: [
-                    { text: "Videoyu dikkatlice incele ve gizli mesajları yakala.", next: "chapter7_analyze" },
-                    { text: "Hemen dışarı çık ve yardım iste.", next: "chapter7_help" }
-                ]
-            },
-            chapter6_safe: {
-                title: "Bölüm 3 — Geçmişin Yüzü (Güvenli)",
-                text: `USB'yi Hasan'ın bilgisayarına taktınız. Dosyalar arasında eski video kayıtları ve şifreli mesajlar vardı. Videoda, şehrin eski yeraltı örgütünden bir liderin konuşması yer alıyordu.
+            Hasan cihazdan gelen sinyalleri takip ederek birkaç dakika içinde kilidi çözdü. Kasanın kapağı yavaşça açıldı. İçinden eski, sararmış bir zarf ve gizemli bir USB çıktı.
 
-                "Bu adam geçmişin gölgesi," dedi Efe. "Bizimle hesaplaşmaya geliyor."
-                
-                Güvende olduğunuz için daha rahat çalışabiliyorsunuz.`,
-                choices: [
-                    { text: "Videoyu dikkatlice incele ve gizli mesajları yakala.", next: "chapter7_analyze_safe" },
-                    { text: "Hemen dışarı çık ve yardım iste.", next: "chapter7_help" }
-                ]
-            },
-            chapter6_danger: {
-                title: "Bölüm 3 — Tehlikeli Keşif",
-                text: `Çatışma sonrası kasayı açmayı başardınız ancak içindeki USB hasar görmüştü. Hasan onu onarırken, dışarıdan gelen sesler artıyordu.
+            "USB'yi hemen incelemeliyiz," dedi Hasan.
 
-                "Zaman daralıyor," dedi Efe. "Hızlı karar vermeliyiz."`,
-                choices: [
-                    { text: "USB'yi onarıp incelemeyi dene.", next: "chapter7_repair" },
-                    { text: "Hemen kaç ve daha sonra incele.", next: "chapter7_escape" }
-                ]
-            },
-            chapter7_analyze: {
-                title: "Analiz",
-                text: `Video kare kare incelendiğinde, ekranın köşesinde hızlıca geçen bir sayı dizisi fark edildi: "7-4-2-9-3". Bu diziyi bir sonraki bulmacanın kilidi olarak kullanabilirsin.`,
-                next: "chapter8"
-            },
-            chapter7_analyze_safe: {
-                title: "Detaylı Analiz",
-                text: `Video kare kare incelendiğinde, ekranın köşesinde hızlıca geçen bir sayı dizisi fark edildi: "7-4-2-9-3". Ayrıca güvenli ortamda daha fazla ayrıntı keşfettiniz: videoda gizli bir harita da vardı.`,
-                next: "chapter8_safe"
-            },
-            chapter7_help: {
-                title: "Yardım Arayışı",
-                text: `Dışarıda seni bekleyen ekip, beklenmedik bir şekilde yaralı ve çaresiz halde bulundu. "Çok geç kaldınız," dedi biri. "Gölge artık şehirde…"`,
-                next: "chapter8_danger"
-            },
-            chapter7_repair: {
-                title: "Onarım Çalışması",
-                text: `Hasan USB'yi onarmaya çalışırken, dışarıdaki tehlike artıyordu. Sonunda bazı verileri kurtarmayı başardınız ancak eksik bilgilerle devam etmek zorundaydınız.`,
-                next: "chapter8_incomplete"
-            },
-            chapter7_escape: {
-                title: "Kaçış",
-                text: `Hızlıca oradan ayrıldınız. Güvenli bir yere varınca USB'yi inceleyebildiniz ancak çok zaman kaybetmiştiniz.`,
-                next: "chapter8_late"
-            },
-            chapter8: {
-                title: "Bölüm 4 — Son Savaşın Kapısı",
-                text: `Artık geri dönüş yoktu. Malikânenin karanlık koridorlarında gölgelerle savaşıyor, şehrin karanlık sırlarına adım adım yaklaşıyordunuz. Efe yaralı, Hasan yanında ama teknolojiye rağmen tehlike her adımda büyüyordu.`,
-                choices: [
-                    { text: "Cesaretini topla ve doğrudan merkez odaya ilerle.", next: "chapter9_direct" },
-                    { text: "Sessizce çevreden dolan ve tuzakları atlat.", next: "chapter9_stealth" }
-                ]
-            },
-            chapter8_safe: {
-                title: "Bölüm 4 — Avantajlı İlerleme",
-                text: `Elde ettiğiniz ekstra bilgilerle daha avantajlı durumdaydınız. Harita sayesinde gizli geçitleri biliyordunuz. Efe yaralı değildi, ekip tam güçteydi.`,
-                choices: [
-                    { text: "Gizli geçitleri kullanarak ilerle.", next: "chapter9_secret" },
-                    { text: "Ana rotadan güçlü bir şekilde ilerle.", next: "chapter9_strong" }
-                ]
-            },
-            chapter8_danger: {
-                title: "Bölüm 4 — Zor Durum",
-                text: `Yardım ekibi yaralı olduğu için yalnızdınız. Malikânenin karanlık koridorlarında tek başınıza ilerliyordunuz.`,
-                choices: [
-                    { text: "Risk alarak hızlı ilerle.", next: "chapter9_risk" },
-                    { text: "Çok dikkatli ve yavaş ilerle.", next: "chapter9_careful" }
-                ]
-            },
-            chapter8_incomplete: {
-                title: "Eksik Bilgilerle İlerleme",
-                text: `Eksik bilgilerle ilerliyordunuz ancak en azından bir fikriniz vardı. Her adım bir risk taşıyordu.`,
-                next: "chapter9_uncertain"
-            },
-            chapter8_late: {
-                title: "Geç Kalma",
-                text: `Zaman kaybı nedeniyle düşmanlarınız sizi bekliyordu. Tuzağa düşmüş gibi hissediyordunuz.`,
-                next: "chapter9_trap"
-            },
-            chapter9_direct: {
-                title: "Bölüm 5 — Merkez Odadaki Yüzleşme",
-                text: `Erdoğan, Efe ve Hasan, malikânenin en derin odasına ulaştılar. Oda karanlıktı, ancak duvarda eski, tozlu bir tablo dikkat çekiyordu. Tabloda, şehrin geçmişine dair önemli bir ipucu gizlenmiş gibiydi.
+            Fakat dışarıdan ağır adımlar yaklaşıyordu.`,
+            next: "chapter6"
+        },
+        chapter5_wait_safe: {
+            title: "Bölüm 2 — Kasanın Sırrı (Güvenli)",
+            text: `Hasan, cihazındaki karmaşık algoritmalarla kasanın dijital kilidini çözmeye başladı. Efe ve Erdoğan ise odanın karanlığında sessizce bekliyordu.
 
-                Birden kapı sertçe kapandı. Odanın içine soğuk bir hava doldu.
+            "Bu kod, eski bir frekans şifresi," dedi Hasan, "aynı zamanda… bir tür sesli parola."
 
-                "Bizi bekliyorlar," dedi Erdoğan. "Şimdi ya yüzleşeceğiz ya da kaybedeceğiz."`,
-                choices: [
-                    { text: "Tablodaki gizli sembolleri incele.", next: "chapter10_table" },
-                    { text: "Kapıyı zorla açmaya çalış.", next: "chapter10_door" },
-                    { text: "Hasan'dan gizli kapıyı aramasını iste.", next: "chapter10_secret_door" }
-                ]
-            },
-            chapter9_secret: {
-                title: "Gizli Geçitler",
-                text: `Harita sayesinde gizli geçitleri kullanarak doğrudan merkez odaya ulaştınız. Düşmanlarınız sizi beklemiyordu.`,
-                next: "chapter10_advantage"
-            },
-            chapter9_strong: {
-                title: "Güçlü İlerleme",
-                text: `Tam güçle ana rotadan ilerleyerek düşmanları şaşırttınız. Güçlü bir giriş yaptınız.`,
-                next: "chapter10_strong"
-            },
-            chapter9_risk: {
-                title: "Riskli İlerleme",
-                text: `Tek başınıza hızlı ilerlemeye çalışırken, birkaç tuzağa yakalandınız ancak çevikliğinizle kurtuldunuz.`,
-                next: "chapter10_wounded"
-            },
-            chapter9_careful: {
-                title: "Dikkatli İlerleme",
-                text: `Çok dikkatli ilerleyerek tuzakların çoğundan kaçındınız. Yavaş ama güvenli bir şekilde merkez odaya yaklaştınız.`,
-                next: "chapter10_safe_approach"
-            },
-            chapter9_uncertain: {
-                title: "Belirsizlik İçinde",
-                text: `Eksik bilgilerle ilerlerken, beklenmedik engellerle karşılaştınız. Her adım bir sürpriz barındırıyordu.`,
-                next: "chapter10_surprise"
-            },
-            chapter9_trap: {
-                title: "Tuzak",
-                text: `Beklendiğiniz gibi, düşmanlarınız sizi bekliyordu. Tuzağa düştüğünüzü anlayınca, hızlı düşünmeniz gerekti.`,
-                next: "chapter10_trapped"
-            },
-            chapter10_table: {
-                title: "Gizli Keşif",
-                text: `Tabloda ince bir çizgi fark ettin. Hafifçe dokunduğunda tablo kaydı ve arkasında küçük bir kasa ortaya çıktı. Kasanın üzerinde eski bir alfabe ile şifrelenmiş bir mesaj vardı.
+            Hasan cihazdan gelen sinyalleri takip ederek birkaç dakika içinde kilidi çözdü. Kasanın kapağı yavaşça açıldı. İçinden eski, sararmış bir zarf ve gizemli bir USB çıktı.
 
-                Hasan hemen cihazını çıkardı ve çözmeye başladı.`,
-                next: "chapter11"
-            },
-            chapter10_door: {
-                title: "Zorlu Çatışma",
-                text: `Kapıyı zorlamak için güç kullandın ancak içerideki mekanizma alarmı tetikledi. Kısa süre içinde içeriye birkaç adam girdi. Zorlu bir çatışma başladı. Erdoğan ustaca hareket ederek avantaj sağladı ancak ekipten biri yaralandı.`,
-                next: "chapter11_combat"
-            },
-            chapter10_secret_door: {
-                title: "Gizli Geçit",
-                text: `Hasan odanın bir köşesinde gizli bir panel buldu. Paneli açtığında, gizli bir geçit ortaya çıktı. Geçidin sonunda eski bir mahzen vardı. Orada, olayların kilit noktası olan eski belgeler ve cihazlar duruyordu.`,
-                next: "chapter11_documents"
-            },
-            chapter10_advantage: {
-                title: "Avantajlı Pozisyon",
-                text: `Gizli geçitlerden gelerek düşmanları şaşırttınız. Merkez odayı kontrol altına aldınız ve önemli belgelere ulaştınız.`,
-                next: "chapter11_victory"
-            },
-            chapter10_strong: {
-                title: "Güçlü Giriş",
-                text: `Güçlü girişiniz düşmanları geri püskürttü. Merkez odayı kontrol altına alarak önemli ipuçlarına ulaştınız.`,
-                next: "chapter11_victory"
-            },
-            chapter10_wounded: {
-                title: "Yaralı İlerleme",
-                text: `Yaralı olmanıza rağmen merkez odaya ulaştınız. Durumunuz zor ama kararlılığınız sizi ayakta tutuyor.`,
-                next: "chapter11_difficult"
-            },
-            chapter10_safe_approach: {
-                title: "Güvenli Yaklaşım",
-                text: `Dikkatli yaklaşımınız meyvesini verdi. Merkez odaya güvenli bir şekilde ulaşarak durumu değerlendirme fırsatı buldunuz.`,
-                next: "chapter11"
-            },
-            chapter10_surprise: {
-                title: "Sürpriz Karşılaşma",
-                text: `Belirsizlik içinde ilerlerken, beklenmedik bir keşif yaptınız. Gizli bir oda buldunuz ama içinde neler olduğu belirsizdi.`,
-                next: "chapter11_mystery"
-            },
-            chapter10_trapped: {
-                title: "Tuzaktan Kaçış",
-                text: `Tuzağa düşmüş olsanız da, hızlı düşünce ve cesur harekelerle durumu tersine çevirmeyi başardınız.`,
-                next: "chapter11_escape"
-            },
-            chapter11: {
-                title: "Bölüm 6 — Karanlık Gerçekler",
-                text: `Mahzende bulunan belgeler, şehrin üst düzey isimlerinin organize suçla bağlantısını ortaya çıkarıyordu. Efe sessizce fısıldadı: "Bu kadardeep büyük," dedi Efe. "Bu bilgiler yanlış ellere geçerse..."
+            "USB'yi hemen incelemeliyiz," dedi Hasan.
 
-                Birden, mahzenin girişinde adım sesleri duyuldu.`,
-                choices: [
-                    { text: "Belgeleri hızlıca topla ve kaç.", next: "chapter12_escape" },
-                    { text: "Belgeleri fotoğrafla ve gizli çıkışı ara.", next: "chapter12_photo" },
-                    { text: "Karşılaşmaya hazırlan ve savaş.", next: "chapter12_fight" }
-                ]
-            },
-            chapter11_combat: {
-                title: "Savaş Sonrası",
-                text: `Çatışma sona erdiğinde, yaralı ekip üyesini güvenli bir yere taşıdınız. Odada bulunan belgeler büyük bir komplo ortaya çıkarıyordu.`,
-                next: "chapter12_wounded"
-            },
-            chapter11_documents: {
-                title: "Kritik Keşif",
-                text: `Mahzendeki belgeler şehrin en karanlık sırlarını içeriyordu. Bu bilgiler doğru kullanılırsa büyük bir adaletsizlik ortaya çıkacaktı.`,
-                next: "chapter12_revelation"
-            },
-            chapter11_victory: {
-                title: "Zafer",
-                text: `Güçlü girişinizin ardından, düşmanlarınızı alt etmeyi başardınız. Artık gerçeği ortaya çıkarmanın vakti gelmişti.`,
-                next: "chapter12_truth"
-            },
-            chapter11_difficult: {
-                title: "Zorlu Durum",
-                text: `Yaralı olmanıza rağmen önemli ipuçlarına ulaştınız. Artık son hamlenizi yapmanız gerekiyordu.`,
-                next: "chapter12_final_push"
-            },
-            chapter11_mystery: {
-                title: "Gizemli Oda",
-                text: `Bulduğunuz gizli odada, beklenmedik şeyler vardı. Bu oda, tüm olayların merkeziydi.`,
-                next: "chapter12_center"
-            },
-            chapter11_escape: {
-                title: "Kaçış Başarılı",
-                text: `Tuzaktan başarıyla kaçtıktan sonra, asıl hedefinize ulaştınız. Son mücadele başlamak üzereydi.`,
-                next: "chapter12_final"
-            },
-            chapter12_escape: {
-                title: "Son Kaçış",
-                text: `Belgeleri toplarken, arkadan gelen sesler yaklaşıyordu. Efe yaralı bacağıyla zorlukla yürüyordu.
-                
-                "Erdoğan, bu belgeler şehirdeki her şeyi değiştirecek," dedi Hasan. "Ama önce buradan çıkmalıyız."
-                
-                Gizli çıkıştan kaçmayı başardınız ama peşinizdeki gölgeler de vazgeçmiyordu.`,
-                next: "ending_escape"
-            },
-            chapter12_photo: {
-                title: "Dijital Kanıt",
-                text: `Hasan belgeleri hızlıca fotoğrafladı. Dijital kopyalar güvendeydi artık.
-                
-                "Gizli çıkış burada," dedi ve duvardaki gizli bir paneli açtı.
-                
-                Sessizce çıkmayı başardınız ve kanıtlar elinizde güvendeydi.`,
-                next: "ending_evidence"
-            },
-            chapter12_fight: {
-                title: "Son Savaş",
-                text: `Erdoğan silahını çekerek karşılaşmaya hazırlandı. Gelen kişi beklenmedik biriydi - şehrin eski emniyet müdürü.
-                
-                "Erdoğan, seni durdurmak için buradayım," dedi müdür.
-                
-                "Hayır," dedi Erdoğan. "Gerçek artık gün yüzüne çıkacak."
-                
-                Yoğun bir çatışma yaşandı ancak Erdoğan haklı davasını savundu.`,
-                next: "ending_justice"
-            },
-            chapter12_wounded: {
-                title: "Yaralı Ekip",
-                text: `Yaralı ekip üyenizi tedavi ettikten sonra, belgeleri inceleme şansınız oldu. İçlerinde şehrin en üst düzey yöneticilerinin suça karıştığını gösteren kanıtlar vardı.`,
-                next: "ending_revelation"
-            },
-            chapter12_revelation: {
-                title: "Büyük Açığa Çıkarma",
-                text: `Belgeler incelendiğinde, şehirdeki organize suç şebekesinin ne kadar derinlere uzandığı ortaya çıktı. Belediye başkanından polis şefine kadar herkes dahildi.`,
-                next: "ending_corruption"
-            },
-            chapter12_truth: {
-                title: "Gerçeğin Işığı",
-                text: `Güçlü bir şekilde elde ettiğiniz kanıtlarla, artık gerçeği dünyaya duyurma zamanı gelmişti. Basına ulaşarak büyük bir skandalı ortaya çıkardınız.`,
-                next: "ending_media"
-            },
-            chapter12_final_push: {
-                title: "Son Hamle",
-                text: `Yaranıza rağmen, kararlılığınızla son hamlenizi yaptınız. Bu bilgiler sayesinde şehirdeki karanlık ağı çökertme şansına sahiptiniz.`,
-                next: "ending_determined"
-            },
-            chapter12_center: {
-                title: "Merkezi Keşif",
-                text: `Gizli odanın merkezi olduğunu keşfettiniz. Burası tüm operasyonların planlandığı yerdi. Duvarlarda şehrin haritası ve hedef noktalar işaretlenmişti.`,
-                next: "ending_mastermind"
-            },
-            chapter12_final: {
-                title: "Final",
-                text: `Son mücadeleye hazırdınız. Elde ettiğiniz tüm kanıtlar ve yaşadığınız zorluklardan sonra, artık karanlık güçleri yenme zamanı gelmişti.`,
-                next: "ending_final_battle"
-            },
+            Sessizce girdiğiniz için kimse yaklaşmıyordu. Elinizde hem USB hem de zarf vardı.`,
+            choices: [
+                { text: "Önce USB'yi incele.", next: "chapter6_safe_usb" },
+                { text: "Önce zarfı oku.", next: "chapter6_safe_envelope" }
+            ]
+        },
+        chapter5_guess: {
+            title: "Tahmin Oyunu",
+            text: `Efe etrafı kolaçan ederken bir karanlık figürün gölgesi kapının arkasında belirdi. Bir çatışma başladı! Erdoğan hızlıca ateş etti, Efe kaçmaya çalıştı. Ancak figür kayboldu.
 
-            // SON BÖLÜMLER
-            ending_escape: {
-                title: "SON - Gölgelerden Kaçış",
-                text: `Malikâneden kaçmayı başardınız ancak gölgeler hâlâ peşinizdeydi. Belgeleri güvenli bir yere sakladınız ve planınızı uygulamaya koydunız. 
+            "Bu oyunu biliyor," dedi Erdoğan. "Bizden bir adım önde."
 
-                Birkaç gün sonra, medyaya sızdırdığınız bilgiler büyük bir skandal yarattı. Şehirdeki yolsuzluk ağı çöktü ancak bazı gölgeler hâlâ karanlıkta saklanıyordu.
+            Kasa kilitli kaldı. Zamanınız azalıyor.`,
+            next: "chapter6_danger"
+        },
+        chapter6: {
+            title: "Bölüm 3 — Geçmişin Yüzü",
+            text: `USB'yi Hasan'ın bilgisayarına taktınız. Dosyalar arasında eski video kayıtları ve şifreli mesajlar vardı. Videoda, şehrin eski yeraltı örgütünden bir liderin konuşması yer alıyordu.
 
-                Erdoğan, pencereden dışarı bakarken düşündü: "Bu savaş bitti ama gölgeler hiçbir zaman tamamen kaybolmaz. Onları beklemede olacağım."
+            "Bu adam geçmişin gölgesi," dedi Efe. "Bizimle hesaplaşmaya geliyor."
 
-                <div class="ending-text">
-                <strong>🌫️ KAÇIŞ SONU 🌫️</strong><br>
-                Gölgelerden kaçmayı başardınız ancak savaş henüz bitmedi. Efe ve ekibi, şehirdeki adaletsizliği ortaya çıkardı ama bazı sırlar hâlâ karanlıkta saklı kalıyor...
-                </div>`,
-                isEnding: true
-            },
-            ending_evidence: {
-                title: "SON - Dijital Adalet",
-                text: `Dijital kanıtlar sayesinde büyük bir hukuki süreç başladı. Hasan'ın teknoloji uzmanlığı, tüm suçluları yakalamak için kritik oldu.
+            Dışarıdan gelen sesler daha da netleşiyordu.`,
+            choices: [
+                { text: "Videoyu dikkatlice incele ve gizli mesajları yakala.", next: "chapter7_analyze" },
+                { text: "Hemen dışarı çık ve yardım iste.", next: "chapter7_help" }
+            ]
+        },
+        chapter6_safe_usb: {
+            title: "Bölüm 3 — USB'nin Sırları",
+            text: `USB'yi Hasan'ın bilgisayarına taktınız. Dosyalar arasında eski video kayıtları ve şifreli mesajlar vardı. Videoda, şehrin eski yeraltı örgütünden bir liderin konuşması yer alıyordu.
 
-                Mahkemede sunulan kanıtlar o kadar güçlüydü ki, şehirdeki organize suç şebekesi tamamen çöktü. Erdoğan nihayet emekli olabilirdi.
+            "Bu adam geçmişin gölgesi," dedi Efe. "Bizimle hesaplaşmaya geliyor."
 
-                "Teknoloji ve adalete olan inancımız bizi buraya getirdi," dedi Erdoğan son röportajında.
+            Güvende olduğunuz için daha rahat çalışabiliyorsunuz.`,
+            choices: [
+                { text: "Videoyu dikkatlice incele ve gizli mesajları yakala.", next: "chapter7_analyze_safe" },
+                { text: "USB'deki diğer dosyalara göz at.", next: "chapter7_explore_usb" }
+            ]
+        },
+        chapter6_safe_envelope: {
+            title: "Bölüm 3 — Zarfın İçeriği",
+            text: `Zarfın içinden sararmış, el yazısıyla yazılmış notlar ve eski bir fotoğraf çıktı. Notlarda, organize suç liderinin "Karanlık Kalp" adını verdiği gizli bir operasyondan bahsediliyordu. Fotoğrafta ise genç bir Hasan, örgüt lideriyle yan yana duruyordu.
 
-                <div class="ending-text">
-                <strong>💾 TEKNOLOJİ SONU 💾</strong><br>
-                Dijital kanıtlar sayesinde adalet sağlandı. Efe ve Hasan şehri karanlık güçlerden kurtarmayı başardı. Teknoloji ve ekip çalışması zafer kazandı!
-                </div>`,
-                isEnding: true
-            },
-            ending_justice: {
-                title: "SON - Adalet Zafer Kazandı",
-                text: `Son savaşta haklılığı savunan Efe, yolsuz eski emniyet müdürünü alt etmeyi başardı. Çatışma sırasında tüm gerçekler ortaya çıktı.
+            Hasan'ın yüzü bembeyaz oldu. "Bu... bu imkansız..."`,
+            choices: [
+                { text: "Hasan'a fotoğrafı sor.", next: "chapter7_hasan_confront" },
+                { text: "Notları oku ve gizli operasyon hakkında bilgi edin.", next: "chapter7_read_notes" }
+            ]
+        },
+        chapter6_danger: {
+            title: "Bölüm 3 — Tehlikeli Keşif",
+            text: `Çatışma sonrası kasayı açmayı başaramadınız. Malikânenin içine daha fazla düşman sızmaya başlamıştı. Durum giderek kötüleşiyordu.
 
-                Şehirdeki yolsuzluk ağının lideri yakalandı ve adalet tecelli etti. Efe bir kahraman olarak emekli oldu.
+            "Zaman daralıyor," dedi Efe. "Hızlı karar vermeliyiz."`,
+            choices: [
+                { text: "Kasanın kilidini kırmaya çalış, riski göze al.", next: "chapter7_break_lock" },
+                { text: "Hemen kaç ve daha sonra bilgi toplamaya çalış.", next: "chapter7_escape_danger" }
+            ]
+        },
+        chapter7_analyze: {
+            title: "Analiz",
+            text: `Video kare kare incelendiğinde, ekranın köşesinde hızlıca geçen bir sayı dizisi fark edildi: "7-4-2-9-3". Bu diziyi bir sonraki bulmacanın kilidi olarak kullanabilirsin. Ancak dışarıdaki sesler çok yaklaştı.`,
+            next: "chapter8"
+        },
+        chapter7_analyze_safe: {
+            title: "Detaylı Analiz",
+            text: `Video kare kare incelendiğinde, ekranın köşesinde hızlıca geçen bir sayı dizisi fark edildi: "7-4-2-9-3". Ayrıca güvenli ortamda daha fazla ayrıntı keşfettiniz: videoda gizli bir harita da vardı. Bu harita, malikânenin altında gizli tünellerin ağını gösteriyordu.`,
+            next: "chapter8_safe_revealed"
+        },
+        chapter7_explore_usb: {
+            title: "USB'deki Gizli Dosyalar",
+            text: `USB'de, liderin gizli iletişim ağını gösteren şifreli mesajlar ve gelecek operasyonlara dair planlar bulundu. Bu bilgiler, düşmanların sonraki hamlelerini öngörmeniz için kritikti.`,
+            next: "chapter8_safe_advanced"
+        },
+        chapter7_hasan_confront: {
+            title: "Hasan'la Yüzleşme",
+            text: `Erdoğan, Hasan'a fotoğrafı gösterdi. Hasan'ın gözleri doldu. "Bu... bu eski bir hikaye. Çocukluğumda ailem zorlandı, beni bu işlere bulaştırdılar. Ama ben onlara sırtımı döndüm!"
 
-                "Adalet her zaman kazanır, sadece bazen biraz zaman alır," dedi Erdoğan.
+            Efe şüpheyle baktı: "Bunu bize neden daha önce söylemedin?"
 
-                <div class="ending-text">
-                <strong>⚖️ ADALET SONU ⚖️</strong><br>
-                Efe cesur duruşuyla adaleti sağladı. Şehirdeki karanlık güçler yok edildi ve barış restore edildi. Gerçek bir kahraman hikayesi!
-                </div>`,
-                isEnding: true
-            },
-            ending_revelation: {
-                title: "SON - Büyük Açığa Çıkarma",
-                text: `Yaralı ekip üyesinin fedakarlığı boşuna gitmedi. Elde edilen belgeler sayesinde şehirdeki en büyük yolsuzluk skandalı ortaya çıktı.
+            Hasan başını eğdi. "Çünkü korktum. Ama şimdi... şimdi gerçeği ortaya çıkarmanın zamanı."
 
-                Onlarca üst düzey yetkili tutuklandı ve şehir yeniden temiz bir yönetim altına girdi. Ekibin cesareti ve dayanışması zafer getirdi.
+            Bu bilgi, ekibin dinamiklerini değiştirdi.`,
+            next: "chapter8_trust_challenge"
+        },
+        chapter7_read_notes: {
+            title: "Gizli Operasyon Notları",
+            text: `Notlarda, "Karanlık Kalp" operasyonunun şehrin enerji altyapısını hedef aldığı, büyük bir kaos yaratmayı amaçladığı yazıyordu. Tarihler ve koordinatlar belirtilmişti. Bu, sadece bir mezar soygunu değil, çok daha büyük bir saldırı planıydı.`,
+            next: "chapter8_imminent_threat"
+        },
+        chapter7_help: {
+            title: "Yardım Arayışı",
+            text: `Dışarıda seni bekleyen ekip, beklenmedik bir şekilde yaralı ve çaresiz halde bulundu. "Çok geç kaldınız," dedi biri fısıltıyla. "Gölge artık şehirde…"
 
-                <div class="ending-text">
-                <strong>📜 AÇIĞA ÇIKARMA SONU 📜</strong><br>
-                Büyük fedakarlıklar sonucu gerçek ortaya çıktı. Şehirdeki yolsuzluk tamamen temizlendi ve adalet sağlandı. Ekip çalışması mükemmel sonuç verdi!
-                </div>`,
-                isEnding: true
-            },
-            ending_corruption: {
-                title: "SON - Yolsuzluğun Sonu",
-                text: `Belgeler incelendiğinde ortaya çıkan gerçek o kadar şoke ediciydi ki, şehirde büyük bir temizlik hareketi başladı.
+            Ekibiniz ciddi bir darbe almıştı.`,
+            next: "chapter8_danger"
+        },
+        chapter7_break_lock: {
+            title: "Kasanın Kilidini Kırma Girişimi",
+            text: `Erdoğan, kasayı kırmak için zorlu bir çaba sarf etti. Başarılı oldu ancak bu sırada çıkan gürültü, malikânedeki tüm düşmanları üzerinize çekti. Bir anda odanın etrafı sarıldı.`,
+            next: "chapter8_trap"
+        },
+        chapter7_escape_danger: {
+            title: "Tehlikeden Kaçış",
+            text: `Hızlıca malikâneden ayrılmaya karar verdiniz. Arkadaşlarınızla birlikte zorlu bir kaçış mücadelesi verdiniz. Şehre döndüğünüzde, malikâneden bilgi toplayamamış olmanın verdiği hayal kırıklığı vardı. Ancak hayattaydınız.`,
+            next: "chapter8_regroup"
+        },
+        chapter8: {
+            title: "Bölüm 4 — Son Savaşın Kapısı",
+            text: `Artık geri dönüş yoktu. Malikânenin karanlık koridorlarında gölgelerle savaşıyor, şehrin karanlık sırlarına adım adım yaklaşıyordunuz. Efe yaralı, Hasan yanında ama teknolojiye rağmen tehlike her adımda büyüyordu. Elde ettiğiniz sayı dizisi ("7-4-2-9-3") bir sonraki kapı için ipucuydu.`,
+            choices: [
+                { text: "Cesaretini topla ve doğrudan merkez odaya ilerle.", next: "chapter9_direct" },
+                { text: "Sessizce çevreden dolan ve tuzakları atlat.", next: "chapter9_stealth" }
+            ]
+        },
+        chapter8_safe_revealed: {
+            title: "Bölüm 4 — Haritanın Işığında",
+            text: `Elde ettiğiniz gizli harita sayesinde malikânenin altında uzanan tünellerin varlığını biliyordunuz. Bu tüneller, merkeze daha güvenli ve hızlı bir yol sunuyordu. Ekip tam güçteydi.`,
+            choices: [
+                { text: "Gizli tünelleri kullanarak ilerle.", next: "chapter9_tunnel_route" },
+                { text: "Ana rotadan güçlü bir şekilde ilerle, onları şaşırt.", next: "chapter9_strong" }
+            ]
+        },
+        chapter8_safe_advanced: {
+            title: "Bölüm 4 — Gelişmiş İstihbarat",
+            text: `USB'den edindiğiniz şifreli iletişim ağları ve operasyon planları sayesinde düşmanlarınızın hamlelerini tahmin edebiliyordunuz. Bu size büyük bir avantaj sağlıyordu. Ekibiniz de tamdı.`,
+            choices: [
+                { text: "Düşmanların hareketlerini tahmin ederek pusu kur.", next: "chapter9_ambush" },
+                { text: "En zayıf noktalarını hedef alarak doğrudan saldır.", next: "chapter9_direct_attack" }
+            ]
+        },
+        chapter8_trust_challenge: {
+            title: "Bölüm 4 — Güven Testi",
+            text: `Hasan'ın geçmişiyle yüzleşmek, ekip içinde bir gerilim yarattı. Güven sarsılmıştı ancak ortak hedefe ulaşmak zorundaydınız. Şehirdeki tehlike büyüyordu ve malikânedeki ipuçlarını takip etmek zorundaydınız.`,
+            choices: [
+                { text: "Hasan'a güven, onun bilgilerini kullan.", next: "chapter9_hasan_trust" },
+                { text: "Hasan'dan uzak dur, kendi yolunu bul.", next: "chapter9_solo_path" }
+            ]
+        },
+        chapter8_imminent_threat: {
+            title: "Bölüm 4 — Yaklaşan Tehdit",
+            text: `"Karanlık Kalp" operasyonunun detayları sizi şok etmişti. Şehrin enerji altyapısına yapılacak saldırı, büyük bir felakete yol açabilirdi. Zaman daralıyordu. Malikâneden hızlıca ayrılıp bu saldırıyı durdurmak zorundaydınız.`,
+            choices: [
+                { text: "Malikânedeki tüm ipuçlarını bırakıp şehre dön.", next: "chapter9_city_return" },
+                { text: "Saldırının merkezini bulmak için malikânede kal.", next: "chapter9_stay_malikane" }
+            ]
+        },
+        chapter8_danger: {
+            title: "Bölüm 4 — Zor Durum",
+            text: `Yardım ekibi yaralı olduğu için yalnızdınız. Malikânenin karanlık koridorlarında tek başınıza ilerliyordunuz. Durumunuz kritikti.`,
+            choices: [
+                { text: "Risk alarak hızlı ilerle.", next: "chapter9_risk" },
+                { text: "Çok dikkatli ve yavaş ilerle.", next: "chapter9_careful" }
+            ]
+        },
+        chapter8_trap: {
+            title: "Bölüm 4 — Tuzağın Ortasında",
+            text: `Kasayı kırma girişiminiz düşmanları üzerinize çekmişti. Odanın etrafı sarılmıştı ve çatışma kaçınılmazdı.`,
+            choices: [
+                { text: "Savaşarak çıkış yolu aç.", next: "chapter9_fight_out" },
+                { text: "Gizli bir kaçış yolu ara.", next: "chapter9_find_exit" }
+            ]
+        },
+        chapter8_regroup: {
+            title: "Bölüm 4 — Şehirde Yeniden Gruplanma",
+            text: `Malikâneden bilgi toplayamamış olmanın verdiği dezavantajla şehre döndünüz. Ancak hala bir şansınız vardı. Şehrin sokaklarında, "Gölge" hakkında fısıltılar dolaşıyordu. Bu fısıltılar, size yeni bir başlangıç noktası sunabilirdi.`,
+            choices: [
+                { text: "Şehirdeki yeraltı bağlantılarını kullan.", next: "chapter9_underground_contacts" },
+                { text: "Polisle iş birliği yapmayı dene.", next: "chapter9_police_cooperation" }
+            ]
+        },
+        chapter9_direct: {
+            title: "Bölüm 5 — Merkez Odadaki Yüzleşme",
+            text: `Erdoğan, Efe ve Hasan, malikânenin en derin odasına ulaştılar. Oda karanlıktı, ancak duvarda eski, tozlu bir tablo dikkat çekiyordu. Tabloda, şehrin geçmişine dair önemli bir ipucu gizlenmiş gibiydi.
 
-                Belediye başkanından polis şefine kadar onlarca kişi tutuklandı. Şehir tarihinin en büyük yolsuzluk davası açıldı.
+            Birden kapı sertçe kapandı. Odanın içine soğuk bir hava doldu.
 
-                 Efe ve Hasan'ın cesaretli çalışması sayesinde şehir yeniden doğdu.
+            "Bizi bekliyorlar," dedi Erdoğan. "Şimdi ya yüzleşeceğiz ya da kaybedeceğiz."`,
+            choices: [
+                { text: "Tablodaki gizli sembolleri incele.", next: "chapter10_table" },
+                { text: "Kapıyı zorla açmaya çalış.", next: "chapter10_door" },
+                { text: "Hasan'dan gizli kapıyı aramasını iste.", next: "chapter10_secret_door" }
+            ]
+        },
+        chapter9_stealth: {
+            title: "Bölüm 5 — Gizli Yol",
+            text: `Sessizce çevreden dolanarak merkez odaya yaklaştınız. Birkaç tuzaktan kaçındınız ancak zaman kaybettiniz. Merkez odanın kapısı aralıktı, içeriden sesler geliyordu.`,
+            choices: [
+                { text: "İçeri sız ve dinle.", next: "chapter10_listen" },
+                { text: "Aniden içeri dal.", next: "chapter10_surprise_attack" }
+            ]
+        },
+        chapter9_tunnel_route: {
+            title: "Bölüm 5 — Tünellerin Sırrı",
+            text: `Gizli harita sayesinde malikânenin altındaki tünellere girdiniz. Tüneller karanlık ve labirent gibiydi ama harita size yol gösteriyordu. En sonunda, doğrudan merkez odanın altına çıkan gizli bir geçit buldunuz.`,
+            next: "chapter10_underground_access"
+        },
+        chapter9_strong: {
+            title: "Bölüm 5 — Güçlü İlerleme",
+            text: `Ana rotadan kararlılıkla ilerleyerek karşılaştığınız tüm düşmanları alt ettiniz. Merkez odaya güçlü bir giriş yaptınız. İçerideki düşmanlar şaşkına dönmüştü.`,
+            next: "chapter10_strong_entry"
+        },
+        chapter9_ambush: {
+            title: "Bölüm 5 — Ustalıkla Kurulan Pusu",
+            text: `Düşmanların hareketlerini önceden bilerek malikânenin koridorlarında stratejik noktalar belirlediniz. Merkez odaya ulaşmadan önce pusuya yattınız ve düşman devriyelerini tek tek etkisiz hale getirdiniz. Odaya sessizce sızdınız.`,
+            next: "chapter10_perfect_stealth"
+        },
+        chapter9_direct_attack: {
+            title: "Bölüm 5 — Hızlı ve Acımasız Saldırı",
+            text: `Düşmanların zayıf noktalarını hedef alarak hızlı ve acımasız bir saldırı başlattınız. Malikânenin içinde tam bir kaos yaşandı. Merkez odaya zorlu bir çatışmanın ardından ulaştınız ama düşmanlar da direnmeye hazırdı.`,
+            next: "chapter10_total_chaos"
+        },
+        chapter9_hasan_trust: {
+            title: "Bölüm 5 — Güvenin Bedeli",
+            text: `Hasan'ın geçmişiyle yüzleşmesine rağmen ona güvendiniz ve onun yönlendirmeleriyle ilerlediniz. Hasan, malikânenin eski planlarını hatırlayarak sizi gizli bir geçide yönlendirdi. Bu geçit, merkez odaya giden ana koridoru atlıyordu.`,
+            next: "chapter10_hasan_route"
+        },
+        chapter9_solo_path: {
+            title: "Bölüm 5 — Yalnız Kurt",
+            text: `Hasan'dan uzak durmayı seçerek kendi başınıza ilerlemeye karar verdiniz. Bu, sizi zorlu bir yola soktu. Birçok tuzak ve düşman devriyesiyle karşılaştınız. Merkez odaya ulaşmak için büyük çaba sarf ettiniz ve yoruldunuz.`,
+            next: "chapter10_erdoğan_solo"
+        },
+        chapter9_city_return: {
+            title: "Bölüm 5 — Şehirde Yeni Hedef",
+            text: `Malikânedeki tüm ipuçlarını bırakıp "Karanlık Kalp" operasyonunu durdurmak için şehre geri döndünüz. Şimdi hedefiniz, enerjiyi sabote etme planının merkezini bulmaktı. Zamanınız kısıtlıydı.`,
+            choices: [
+                { text: "Şehrin enerji merkezlerine doğru ilerle.", next: "chapter10_energy_plant" },
+                { text: "Güvenlik birimleriyle iletişime geçmeye çalış.", next: "chapter10_contact_authorities" }
+            ]
+        },
+        chapter9_stay_malikane: {
+            title: "Bölüm 5 — Malikânede Kalma",
+            text: `"Karanlık Kalp" operasyonunun arkasındaki beyni malikânede bulmaya karar verdiniz. Belki de saldırı planının daha fazla detayı buradaydı. Malikânenin daha derinlerine indiniz.`,
+            next: "chapter10_deep_malikane"
+        },
+        chapter9_risk: {
+            title: "Bölüm 5 — Riskli İlerleme",
+            text: `Tek başınıza hızlı ilerlemeye çalışırken, birkaç tuzağa yakalandınız ancak çevikliğinizle kurtuldunuz. Ancak bu sizi yavaşlattı ve düşmanların dikkatini çektiniz. Merkez odaya doğru hızla yaklaşıyordunuz ama tehlike altındaydınız.`,
+            next: "chapter10_vulnerable"
+        },
+        chapter9_careful: {
+            title: "Bölüm 5 — Dikkatli İlerleme",
+            text: `Çok dikkatli ilerleyerek tuzakların çoğundan kaçındınız. Yavaş ama güvenli bir şekilde merkez odaya yaklaştınız. İçeriden gelen sesleri net bir şekilde duyabiliyordunuz.`,
+            next: "chapter10_listen_careful"
+        },
+        chapter9_fight_out: {
+            title: "Bölüm 5 — Savaşarak Çıkış",
+            text: `Sizi saran düşmanlarla acımasızca savaştınız. Ağır kayıplar verseniz de, nihayetinde kendinize bir çıkış yolu açmayı başardınız. Ancak bu çatışma sizi çok yormuştu.`,
+            next: "chapter10_exhausted"
+        },
+        chapter9_find_exit: {
+            title: "Bölüm 5 — Gizli Kaçış Yolu",
+            text: `Düşmanlar üzerinize gelirken, Hasan hızla odada gizli bir panel aradı. Kısa sürede küçük bir kapı buldu ve içeri girdiniz. Malikâneden gizlice kaçmayı başardınız ama kasadaki bilgiler hala içerideydi.`,
+            next: "chapter10_escape_no_info"
+        },
+        chapter9_underground_contacts: {
+            title: "Bölüm 5 — Yeraltı Bilgisi",
+            text: `Şehirdeki eski yeraltı bağlantılarınızla iletişime geçtiniz. Size, "Gölge" adında yeni bir figürün ortaya çıktığını ve şehirdeki suç dünyasını yeniden şekillendirdiğini söylediler. Ayrıca, gizemli bir buluşmanın yerini öğrendiniz.`,
+            next: "chapter10_underground_meeting"
+        },
+        chapter9_police_cooperation: {
+            title: "Bölüm 5 — Polis İş Birliği",
+            text: `Polisle iletişime geçmeye çalıştınız. Eski bir dostunuz olan Komiser Cemil'e ulaştınız. Cemil size inanmakta zorlansa da, şehirdeki artan suç olayları onu endişelendiriyordu. Size sınırlı da olsa destek vermeyi kabul etti.`,
+            next: "chapter10_police_support"
+        },
+        chapter10_table: {
+            title: "Gizli Keşif",
+            text: `Tabloda ince bir çizgi fark ettin. Hafifçe dokunduğunda tablo kaydı ve arkasında küçük bir kasa ortaya çıktı. Kasanın üzerinde eski bir alfabe ile şifrelenmiş bir mesaj vardı.
 
-                <div class="ending-text">
-                <strong>🧹 TEMİZLİK SONU 🧹</strong><br>
-                Yolsuzluk ağı tamamen çöktü! Şehir büyük bir temizlik yaşadı ve artık dürüst insanlar yönetiyor. Karanlık günler sona erdi!
-                </div>`,
-                isEnding: true
-            },
-            ending_media: {
-                title: "SON - Medya Gücü",
-                text: `Basına sızdırılan belgeler büyük yankı uyandırdı. Ulusal medya konuyu aldı ve şehirdeki yolsuzluk tüm ülkeye duyuruldu.
+            Hasan hemen cihazını çıkardı ve çözmeye başladı.`,
+            next: "chapter11"
+        },
+        chapter10_door: {
+            title: "Zorlu Çatışma",
+            text: `Kapıyı zorlamak için güç kullandın ancak içerideki mekanizma alarmı tetikledi. Kısa süre içinde içeriye birkaç adam girdi. Zorlu bir çatışma başladı. Erdoğan ustaca hareket ederek avantaj sağladı ancak ekipten biri yaralandı.`,
+            next: "chapter11_combat"
+        },
+        chapter10_secret_door: {
+            title: "Gizli Geçit",
+            text: `Hasan odanın bir köşesinde gizli bir panel buldu. Paneli açtığında, gizli bir geçit ortaya çıktı. Geçidin sonunda eski bir mahzen vardı. Orada, olayların kilit noktası olan eski belgeler ve cihazlar duruyordu.`,
+            next: "chapter11_documents"
+        },
+        chapter10_listen: {
+            title: "Dinleme ve Gözlem",
+            text: `Kapı aralığından içeri baktınız. İçeride bir grup adam bir harita üzerinde bir şeyler tartışıyordu. Aralarında "Gölge" adını sıkça duyuyordunuz. Planları tam olarak anlaşılamıyordu ama tehlikenin büyük olduğu açıktı.`,
+            choices: [
+                { text: "Dinlemeye devam et.", next: "chapter11_eavesdrop" },
+                { text: "Hızlıca içeri dal.", next: "chapter11_ambush" }
+            ]
+        },
+        chapter10_surprise_attack: {
+            title: "Ani Saldırı",
+            text: `Kapıyı aniden açıp içeri daldınız. İçerideki adamlar hazırlıksız yakalandı. Hızlı ve etkili bir saldırıyla çoğunu etkisiz hale getirdiniz. Ancak liderleri kaçmayı başardı ve alarmı tetikledi.`,
+            next: "chapter11_chase"
+        },
+        chapter10_underground_access: {
+            title: "Bölüm 6 — Mahzenin Kalbine",
+            text: `Gizli tünellerden geçerek doğrudan merkez odanın altındaki mahzene ulaştınız. Mahzen, eski organize suç liderinin kişisel çalışma odası gibiydi. Duvarlarda şifreli semboller, masada eski haritalar ve bir günlük duruyordu.`,
+            choices: [
+                { text: "Günlüğü oku.", next: "chapter11_diary" },
+                { text: "Haritaları incele.", next: "chapter11_maps" }
+            ]
+        },
+        chapter10_strong_entry: {
+            title: "Bölüm 6 — Savaşın Ortasında",
+            text: `Merkez odaya güçlü bir şekilde girdiğinizde içerideki düşmanlarla büyük bir çatışma başladı. Ekibiniz tam güçte olduğu için üstünlük sizdeydi ama liderleri kaçmaya çalışıyordu.`,
+            choices: [
+                { text: "Lideri takip et.", next: "chapter11_pursuit" },
+                { text: "Odadaki ipuçlarını topla.", next: "chapter11_secure_evidence" }
+            ]
+        },
+        chapter10_perfect_stealth: {
+            title: "Bölüm 6 — Sessiz Operasyon",
+            text: `Mükemmel gizliliğiniz sayesinde merkez odaya kimseye fark ettirmeden sızdınız. İçerideki adamlar hala harita üzerinde konuşuyordu. "Karanlık Kalp" operasyonunun son aşamasını planlıyorlardı.`,
+            choices: [
+                { text: "Onları yakala.", next: "chapter11_capture" },
+                { text: "Konuşmalarını dinle ve daha fazla bilgi edin.", next: "chapter11_eavesdrop_perfect" }
+            ]
+        },
+        chapter10_total_chaos: {
+            title: "Bölüm 6 — Kaosun İçinde",
+            text: `Malikânenin içinde tam bir kaos yaşanıyordu. Merkez odaya ulaştığınızda, içerideki düşmanlar şaşırmıştı ama hızla karşılık verdiler. Bu, tüm bildiklerinizle yüzleşeceğiniz nihai bir çatışmaya dönüştü.`,
+            next: "chapter11_final_showdown"
+        },
+        chapter10_hasan_route: {
+            title: "Bölüm 6 — Hasan'ın Gizli Yolu",
+            text: `Hasan'ın yönlendirdiği gizli geçit sizi merkez odanın arka kapısına çıkardı. İçeride, "Gölge" olarak bilinen figür ve birkaç adamı konuşuyordu. Onları dinlemeye başladınız.`,
+            choices: [
+                { text: "Dinlemeye devam et.", next: "chapter11_eavesdrop_hasan" },
+                { text: "Aniden içeri dal ve saldır.", next: "chapter11_surprise_attack_hasan" }
+            ]
+        },
+        chapter10_erdoğan_solo: {
+            title: "Bölüm 6 — Yalnızlığın Bedeli",
+            text: `Tek başınıza ilerlerken merkez odaya ulaştınız. Ancak yorgundunuz ve üzerinizde baskı vardı. İçerideki düşmanlar kalabalıktı ve hazırlıklı görünüyordu.`,
+            choices: [
+                { text: "Çatışmaya gir.", next: "chapter11_solo_combat" },
+                { text: "Gizlice bilgi toplamaya çalış.", next: "chapter11_solo_intel" }
+            ]
+        },
+        chapter10_energy_plant: {
+            title: "Bölüm 6 — Enerji Santraline Yarış",
+            text: `"Karanlık Kalp" operasyonunun hedefi enerji santraliydi. Hızlıca santrale doğru ilerlediniz. Vardığınızda, santralin girişinde silahlı adamlar gördünüz. Durum gergindi.`,
+            choices: [
+                { text: "Gizlice içeri sız.", next: "chapter11_plant_stealth" },
+                { text: "Doğrudan saldır.", next: "chapter11_plant_assault" }
+            ]
+        },
+        chapter10_contact_authorities: {
+            title: "Bölüm 6 — Yetkililerle İş Birliği",
+            text: `Komiser Cemil'le iletişime geçtiniz ve "Karanlık Kalp" operasyonu hakkında bilgi verdiniz. Cemil başlangıçta şüpheci olsa da, verdiğiniz detaylar onu harekete geçmeye ikna etti. Büyük bir polis gücüyle enerji santraline doğru ilerlediniz.`,
+            next: "chapter11_police_raid"
+        },
+        chapter10_deep_malikane: {
+            title: "Bölüm 6 — Malikânenin Derinlikleri",
+            text: `Malikânenin alt katlarına indiğinizde, gizli bir laboratuvar buldunuz. İçeride karmaşık bilgisayar sistemleri ve deney tüpleri vardı. Bu yer, "Gölge"nin operasyonlarının merkezi gibiydi.`,
+            choices: [
+                { text: "Bilgisayarları incele.", next: "chapter11_lab_computers" },
+                { text: "Deney tüplerini ve notları incele.", next: "chapter11_lab_experiments" }
+            ]
+        },
+        chapter10_vulnerable: {
+            title: "Bölüm 6 — Savunmasız İlerleme",
+            text: `Yaralı ve dikkat çekerek merkez odaya ulaştınız. İçerideki düşmanlar sizi fark etti. Bir anda üzerinize saldırdılar. Durumunuz çok kötüydü.`,
+            next: "chapter11_overwhelmed"
+        },
+        chapter10_listen_careful: {
+            title: "Bölüm 6 — Dikkatli Dinleme",
+            text: `Merkez odaya yaklaşırken içeriden gelen konuşmaları dinlediniz. "Gölge"nin sesi net bir şekilde duyuluyordu. Bir sonraki hamlesinin detaylarını anlatıyordu. Bu, size bir avantaj sağlayabilirdi.`,
+            choices: [
+                { text: "Dinlemeye devam et, tüm planı öğren.", next: "chapter11_full_intel" },
+                { text: "Saldırı anını bekle ve içeri dal.", next: "chapter11_surprise_entry" }
+            ]
+        },
+        chapter10_exhausted: {
+            title: "Bölüm 6 — Bitkinlik",
+            text: `Daha önceki çatışmadan bitkin düşmüş bir halde merkez odaya ulaştınız. İçerideki düşmanlar sizi fark etti ve üzerinize saldırdı. Gücünüz kalmamıştı.`,
+            next: "chapter11_last_stand"
+        },
+        chapter10_escape_no_info: {
+            title: "Bölüm 6 — Bilgisiz Kaçış",
+            text: `Malikâneden kaçmayı başardınız ancak kasadaki kritik bilgilere ulaşamadınız. Şehirde geri döndüğünüzde, "Gölge"nin operasyonlarının hız kesmeden devam ettiğini gördünüz. Boş elle geri dönmenin verdiği hayal kırıklığı vardı.`,
+            next: "chapter11_lost_opportunity"
+        },
+        chapter10_underground_meeting: {
+            title: "Bölüm 6 — Yeraltı Buluşması",
+            text: `Yeraltı bağlantılarınız sayesinde "Gölge"nin önemli bir buluşma yapacağı yere ulaştınız. Eski, terk edilmiş bir depoydu. İçeriden gelen sesler, buluşmanın başladığını gösteriyordu.`,
+            choices: [
+                { text: "Gizlice içeri sız.", next: "chapter11_depo_stealth" },
+                { text: "Dışarıdan destek bekle.", next: "chapter11_depo_wait" }
+            ]
+        },
+        chapter10_police_support: {
+            title: "Bölüm 6 — Polis Destekli Operasyon",
+            text: `Komiser Cemil'den aldığınız destekle, şehirdeki "Gölge"nin bilinen operasyon noktalarına baskın düzenlemeye başladınız. İlk hedefiniz, yerel bir bankanın güvenlik sistemlerini hedef alan bir soygun girişimiydi.`,
+            next: "chapter11_bank_heist"
+        },
+        chapter11: {
+            title: "Bölüm 7 — Karanlık Gerçekler",
+            text: `Kasadaki belgeler, şehrin üst düzey isimlerinin organize suçla bağlantısını ortaya çıkarıyordu. Efe sessizce fısıldadı: "Bu çok büyük," dedi Efe. "Bu bilgiler yanlış ellere geçerse..."
 
-                Kamuoyu baskısıyla yetkililer istifa etmek zorunda kaldı ve yeni, temiz bir yönetim kuruldu.
+            Birden, mahzenin girişinde adım sesleri duyuldu.`,
+            choices: [
+                { text: "Belgeleri hızlıca topla ve kaç.", next: "chapter12_escape" },
+                { text: "Belgeleri fotoğrafla ve gizli çıkışı ara.", next: "chapter12_photo" },
+                { text: "Karşılaşmaya hazırlan ve savaş.", next: "chapter12_fight" }
+            ]
+        },
+        chapter11_combat: {
+            title: "Savaş Sonrası",
+            text: `Çatışma sona erdiğinde, yaralı ekip üyesini güvenli bir yere taşıdınız. Odada bulunan belgeler büyük bir komplo ortaya çıkarıyordu. Ancak zamanınız azdı.`,
+            next: "chapter12_wounded"
+        },
+        chapter11_documents: {
+            title: "Kritik Keşif",
+            text: `Mahzendeki belgeler şehrin en karanlık sırlarını içeriyordu. Bu bilgiler doğru kullanılırsa büyük bir adaletsizlik ortaya çıkacaktı.`,
+            next: "chapter12_revelation"
+        },
+        chapter11_eavesdrop: {
+            title: "Bölüm 7 — Gizli Dinleme",
+            text: `Konuşmaları dinlemeye devam ettiniz. "Gölge"nin, şehrin belediye başkanıyla işbirliği içinde olduğu ve enerji santralini sabote ederek büyük bir finansal vurgun yapmayı planladığı ortaya çıktı. Onların planının son adımlarını öğrendiniz.`,
+            choices: [
+                { text: "Şimdi saldır!", next: "chapter12_strike_now" },
+                { text: "Bilgileri topla ve dışarıdan yardım iste.", next: "chapter12_call_for_backup" }
+            ]
+        },
+        chapter11_ambush: {
+            title: "Bölüm 7 — Ani Baskın",
+            text: `Hızlıca içeri daldınız ve düşmanlara saldırdınız. İlk şaşkınlığı atlattıktan sonra sert bir direnişle karşılaştınız. Çatışma büyüdü.`,
+            next: "chapter12_heavy_combat"
+        },
+        chapter11_chase: {
+            title: "Bölüm 7 — Takip",
+            text: `Alarmın çalmasıyla kaçan lideri takip etmeye başladınız. Malikânenin labirent gibi koridorlarında nefes kesen bir kovalamaca başladı.`,
+            next: "chapter12_pursuit_malikane"
+        },
+        chapter11_diary: {
+            title: "Bölüm 7 — Liderin Günlüğü",
+            text: `Eski organize suç liderinin günlüğünü okudunuz. Yıllar önceki operasyonlarını, müttefiklerini ve düşmanlarını detaylı bir şekilde yazmıştı. En şaşırtıcı olanı ise, "Gölge"nin aslında eski bir müttefikinin oğlu olduğu ve babasının intikamını almak için geri döndüğü gerçeğiydi.`,
+            choices: [
+                { text: "Gölge'nin kimliğini ortaya çıkar.", next: "chapter12_reveal_identity" },
+                { text: "Günlükteki gizli yerleri araştır.", next: "chapter12_explore_locations" }
+            ]
+        },
+        chapter11_maps: {
+            title: "Bölüm 7 — Şifreli Haritalar",
+            text: `Mahzendeki haritalar, şehrin altındaki eski tünel ağlarını ve gizli geçitleri gösteriyordu. Ayrıca, "Gölge"nin şu anki operasyon merkezinin konumunu da işaretlemişti: terk edilmiş bir metro istasyonu.`,
+            choices: [
+                { text: "Metro istasyonuna git.", next: "chapter12_metro_station" },
+                { text: "Haritalardaki diğer işaretleri incele.", next: "chapter12_other_marks" }
+            ]
+        },
+        chapter11_pursuit: {
+            title: "Bölüm 7 — Kaçak Lider",
+            text: `Lideri takip ettiniz. Malikânenin arka bahçesinden gizli bir tünele giriyordu. Tünel, şehrin dışındaki eski bir depoya çıkıyordu. Lider oradan kaçmaya çalışıyordu.`,
+            choices: [
+                { text: "Depoya baskın yap.", next: "chapter12_warehouse_raid" },
+                { text: "Destek çağır.", next: "chapter12_call_reinforcements" }
+            ]
+        },
+        chapter11_secure_evidence: {
+            title: "Bölüm 7 — Delil Toplama",
+            text: `Lideri kaçmasına izin verdiniz ama odadaki tüm önemli belgeleri ve bilgisayar verilerini ele geçirdiniz. Bu kanıtlar, "Gölge"nin tüm operasyonlarını çökertmek için yeterliydi.`,
+            next: "chapter12_secure_data"
+        },
+        chapter11_capture: {
+            title: "Bölüm 7 — Yakalama",
+            text: `Hızlı ve etkili bir şekilde düşmanları yakaladınız. "Gölge"nin adamları sorgulandığında, liderlerinin şehrin dışında, eski bir tersanede saklandığını itiraf ettiler.`,
+            next: "chapter12_shipyard"
+        },
+        chapter11_eavesdrop_perfect: {
+            title: "Bölüm 7 — Kapsamlı Bilgi",
+            text: `Konuşmaları dikkatlice dinleyerek "Gölge"nin tüm planını öğrendiniz. Şehrin finans merkezini hedef alacak büyük bir siber saldırı planlıyorlardı. Saldırı, gece yarısı başlayacaktı.`,
+            choices: [
+                { text: "Siber saldırıyı durdurmak için harekete geç.", next: "chapter12_cyber_defense" },
+                { text: "Finans merkezini tahliye et.", next: "chapter12_evacuate_finance" }
+            ]
+        },
+        chapter11_final_showdown: {
+            title: "Bölüm 7 — Büyük Çatışma",
+            text: `Malikânenin merkez odasında "Gölge" ve adamlarıyla son bir çatışmaya girdiniz. Bu, hem fiziksel hem de zihinsel bir mücadeleydi. Erdoğan, tüm tecrübesini kullanarak rakiplerini alt etmeye çalıştı.`,
+            next: "chapter12_climax"
+        },
+        chapter11_eavesdrop_hasan: {
+            title: "Bölüm 7 — Gizlice Dinleme (Hasan)",
+            text: `Hasan'ın gizli yolundan gelerek "Gölge"nin ve adamlarının konuşmalarını dinlediniz. "Gölge", şehrin su kaynaklarına sızarak bir panik yaratmayı planlıyordu. Hasan, bu planı duyunca dehşete kapıldı.`,
+            choices: [
+                { text: "Saldırıya müdahale et.", next: "chapter12_water_sabotage_intervention" },
+                { text: "Hasan'a güven, o bir çıkış yolu bulur.", next: "chapter12_hasan_solution" }
+            ]
+        },
+        chapter11_surprise_attack_hasan: {
+            title: "Bölüm 7 — Hasan'ın Yoluyla Saldırı",
+            text: `Hasan'ın yönlendirmesiyle arka kapıdan ani bir saldırı başlattınız. Düşmanlar şaşkına döndü ve hızla dağıldılar. "Gölge" paniğe kapılıp kaçmaya çalıştı.`,
+            next: "chapter12_pursuit_hasan"
+        },
+        chapter11_solo_combat: {
+            title: "Bölüm 7 — Tek Kişilik Savaş",
+            text: `Tek başınıza olmanıza rağmen cesurca çatışmaya girdiniz. Düşmanlar kalabalıktı ve sizi zorladılar. Ağır yaralandınız ama "Gölge"nin kimliğini ve planlarının bir kısmını ele geçirmeyi başardınız.`,
+            next: "chapter12_solo_wounded_intel"
+        },
+        chapter11_solo_intel: {
+            title: "Bölüm 7 — Yalnızca Bilgi",
+            text: `Çatışmadan kaçınarak gizlice bilgi toplamaya odaklandınız. "Gölge"nin kişisel bilgisayarına sızmayı başardınız. İçerideki dosyalar, onun geçmişini ve asıl hedefini ortaya koyuyordu: tüm suç ağını devralmak.`,
+            next: "chapter12_solo_mastermind_info"
+        },
+        chapter11_plant_stealth: {
+            title: "Bölüm 7 — Santrale Sızma",
+            text: `Gizlice enerji santraline sızdınız. İçerideki düzenekleri ve sabotaj ekibini buldunuz. Efe, sabotajı durdurmak için harekete geçti.`,
+            choices: [
+                { text: "Sabotajı sessizce durdur.", next: "chapter12_sabotage_silent" },
+                { text: "Sabotajcıları etkisiz hale getir.", next: "chapter12_sabotage_takedown" }
+            ]
+        },
+        chapter11_plant_assault: {
+            title: "Bölüm 7 — Santrale Saldırı",
+            text: `Doğrudan saldırarak enerji santraline girdiniz. Büyük bir çatışma başladı. Sabotajcılar panikledi ancak direniş gösterdiler.`,
+            next: "chapter12_plant_assault_climax"
+        },
+        chapter11_police_raid: {
+            title: "Bölüm 7 — Polis Baskını",
+            text: `Komiser Cemil'le birlikte enerji santraline baskın düzenlediniz. Polisler hızla sabotajcıları etkisiz hale getirdi. "Gölge"nin planı suya düşmüştü.`,
+            next: "chapter12_police_victory"
+        },
+        chapter11_lab_computers: {
+            title: "Bölüm 7 — Laboratuvar Bilgisayarları",
+            text: `Laboratuvardaki bilgisayarları incelediniz. "Gölge"nin, eski suç liderinin teknolojisini kullanarak şehrin güvenlik sistemlerini ele geçirmeyi amaçladığını öğrendiniz. Bu sayede şehri kendi kontrolü altına alacaktı.`,
+            choices: [
+                { text: "Sistemi devre dışı bırak.", next: "chapter12_disable_system" },
+                { text: "Sisteme sız ve Gölge'yi ifşa et.", next: "chapter12_expose_shadow" }
+            ]
+        },
+        chapter11_lab_experiments: {
+            title: "Bölüm 7 — Gizemli Deneyler",
+            text: `Deney tüplerini ve notları incelediğinizde, "Gölge"nin biyolojik bir silah geliştirmeye çalıştığını fark ettiniz. Bu silah, şehrin su kaynağına bulaştırılarak büyük bir salgın yaratacaktı.`,
+            choices: [
+                { text: "Biyolojik silahı yok et.", next: "chapter12_destroy_bioweapon" },
+                { text: "Örnekleri topla ve uzmanlara götür.", next: "chapter12_collect_samples" }
+            ]
+        },
+        chapter11_overwhelmed: {
+            title: "Bölüm 7 — Tükeniş",
+            text: `Merkez odada düşmanlar tarafından kuşatıldınız. Yaralı ve yorgun olduğunuz için direnişiniz kırıldı. "Gölge"nin zaferi kesindi.`,
+            next: "ending_defeat"
+        },
+        chapter11_full_intel: {
+            title: "Bölüm 7 — Tam Bilgi",
+            text: `"Gölge"nin tüm planını öğrendiniz. Şehrin finans merkezini hedef alacak büyük bir siber saldırı ve eş zamanlı olarak kamu binalarına bombalı saldırılar planlıyordu. Her şey gece yarısı başlayacaktı.`,
+            choices: [
+                { text: "Planı engellemek için acil durum ilan et.", next: "chapter12_emergency_declaration" },
+                { text: "Tek başınıza saldırıları durdurmaya çalış.", next: "chapter12_solo_stop_attacks" }
+            ]
+        },
+        chapter11_surprise_entry: {
+            title: "Bölüm 7 — Ani Giriş",
+            text: `"Gölge"nin planlarını duyduktan sonra aniden içeri daldınız. Adamları şaşırtmayı başardınız. Ancak "Gölge" kurnazdı ve hemen bir çıkış yolu aradı.`,
+            next: "chapter12_surprise_chase"
+        },
+        chapter11_last_stand: {
+            title: "Bölüm 7 — Son Direniş",
+            text: `Bitkin olsanız da son bir direniş gösterdiniz. "Gölge" ve adamlarıyla çatıştınız. Bu, kahramanlığınızın son testiydi.`,
+            next: "chapter12_heroic_stand"
+        },
+        chapter11_lost_opportunity: {
+            title: "Bölüm 7 — Kayıp Şans",
+            text: `Malikâneden bilgi alamadan kaçtığınız için "Gölge"nin operasyonları hız kesmeden devam ediyordu. Şehir kaos içindeydi. Sizin hatanız yüzünden birçok masum insan zarar gördü.`,
+            next: "ending_failure"
+        },
+        chapter11_depo_stealth: {
+            title: "Bölüm 7 — Depoya Sızma",
+            text: `Gizlice depoya sızdınız. İçeride "Gölge" bir grup yerel gangsterle konuşuyordu. Onlara şehrin bankalarını soyma ve kargaşa yaratma planını anlatıyordu.`,
+            choices: [
+                { text: "Gizlice kaydedilen konuşmayı ele geçir.", next: "chapter12_record_conversation" },
+                { text: "Buluşmayı bas ve herkesi yakala.", next: "chapter12_raid_meeting" }
+            ]
+        },
+        chapter11_depo_wait: {
+            title: "Bölüm 7 — Destek Bekleyişi",
+            text: `Deponun dışında destek beklemeye karar verdiniz. Ancak destek hiç gelmedi. İçeriden patlama sesleri duyuldu ve "Gölge"nin adamları hızla kaçtı. Çok geç kalmıştınız.`,
+            next: "ending_too_late"
+        },
+        chapter11_bank_heist: {
+            title: "Bölüm 7 — Banka Soygunu",
+            text: `Komiser Cemil'in ekibiyle birlikte bankaya baskın düzenlediniz. "Gölge"nin adamları soygunu gerçekleştirmeye çalışırken yakalandılar. Çatışma sırasında "Gölge"nin baş yardımcısını ele geçirdiniz.`,
+            next: "chapter12_capture_lieutenant"
+        },
 
-                "Basının gücü adaletten daha hızlı çalışabilir," dedi Efe.
+        // SON BÖLÜMLER
+        chapter12_escape: {
+            title: "Son Kaçış",
+            text: `Belgeleri toplarken, arkadan gelen sesler yaklaşıyordu. Efe yaralı bacağıyla zorlukla yürüyordu.
 
-                <div class="ending-text">
-                <strong>📺 MEDYA SONU 📺</strong><br>
-                Medyanın gücü sayesinde hızlı bir adalet sağlandı. Tüm ülke şehirdeki kahramanlığı öğrendi ve yolsuzluk sona erdi!
-                </div>`,
-                isEnding: true
-            },
-            ending_determined: {
-                title: "SON - Kararlılık Zafer Kazandı",
-                text: `Yaranıza rağmen gösterdiğiniz kararlılık, tüm şehre ilham verdi. İnsanlar sizin hikayenizi duyunca, kendi haklarını savunmaya başladı.
+            "Erdoğan, bu belgeler şehirdeki her şeyi değiştirecek," dedi Hasan. "Ama önce buradan çıkmalıyız."
 
-                Bireysel cesaret, toplumsal bir değişim hareketi başlattı. Şehir artık daha adil bir yerdi.
+            Gizli çıkıştan kaçmayı başardınız ama peşinizdeki gölgeler de vazgeçmiyordu.`,
+            next: "ending_escape"
+        },
+        chapter12_photo: {
+            title: "Dijital Kanıt",
+            text: `Hasan belgeleri hızlıca fotoğrafladı. Dijital kopyalar güvendeydi artık.
 
-                "Bazen bir kişinin kararlılığı, tüm şehri değiştirebilir," dedi Efe.
+            "Gizli çıkış burada," dedi ve duvardaki gizli bir paneli açtı.
 
-                <div class="ending-text">
-                <strong>💪 KARARLLIK SONU 💪</strong><br>
-                Kararlılığınız tüm şehre ilham verdi! Bireysel cesaretin toplumsal değişime yol açtığı nadir hikayelerden biri gerçekleşti!
-                </div>`,
-                isEnding: true
-            },
-            ending_mastermind: {
-                title: "SON - Baş Figürün Yakalanması",
-                text: `Gizli odada bulduğunuz harita ve planlar sayesinde, organize suç şebekesinin baş figürünü yakalamayı başardınız.
+            Sessizce çıkmayı başardınız ve kanıtlar elinizde güvendeydi.`,
+            next: "ending_evidence"
+        },
+        chapter12_fight: {
+            title: "Son Savaş",
+            text: `Erdoğan silahını çekerek karşılaşmaya hazırlandı. Gelen kişi beklenmedik biriydi - şehrin eski emniyet müdürü.
 
-                Bu kişi yakalandığında, tüm şebeke çöktü. Yıllarca şehri karanlıkta tutan kişi nihayet adalet önüne çıkarıldı.
+            "Erdoğan, seni durdurmak için buradayım," dedi müdür.
 
-                Şehir artık gerçek anlamda özgürdü.
+            "Hayır," dedi Erdoğan. "Gerçek artık gün yüzüne çıkacak."
 
-                <div class="ending-text">
-                <strong>🎯 BAŞ FIGÜR SONU 🎯</strong><br>
-                Şebekenin lideri yakalandı! Yıllarca süren karanlık dönem sona erdi ve şehir nihayet özgürlüğüne kavuştu!
-                </div>`,
-                isEnding: true
-            },
-            ending_final_battle: {
-                title: "SON - Nihai Zafer",
-                text: `Son mücadelede tüm cesaretinizi ortaya koydunuz. Yaşadığınız zorluklar, kayıplar ve fedakarlıklar sonucu büyük zafer kazandınız.
+            Yoğun bir çatışma yaşandı ancak Erdoğan haklı davasını savundu.`,
+            next: "ending_justice"
+        },
+        chapter12_wounded: {
+            title: "Yaralı Ekip",
+            text: `Yaralı ekip üyenizi tedavi ettikten sonra, belgeleri inceleme şansınız oldu. İçlerinde şehrin en üst düzey yöneticilerinin suça karıştığını gösteren kanıtlar vardı. Bu bilgilerle ne yapacağınız size kalmıştı.`,
+            next: "ending_revelation"
+        },
+        chapter12_revelation: {
+            title: "Büyük Açığa Çıkarma",
+            text: `Belgeler incelendiğinde, şehirdeki organize suç şebekesinin ne kadar derinlere uzandığı ortaya çıktı. Belediye başkanından polis şefine kadar herkes dahildi. Bu kanıtlar, şehri baştan aşağı temizlemek için yeterliydi.`,
+            next: "ending_corruption"
+        },
+        chapter12_strike_now: {
+            title: "Bölüm 8 — Anında Müdahale",
+            text: `"Gölge"nin planını öğrendikten sonra tereddüt etmeden saldırdınız. Adamları şaşkına döndü ve çatışma başladı. Erdoğan, Efe ve Hasan'ın koordineli saldırısıyla düşmanlar hızla etkisiz hale getirildi. "Gölge"nin kaçış yolu kesildi.`,
+            next: "ending_capture_shadow"
+        },
+        chapter12_call_for_backup: {
+            title: "Bölüm 8 — Takviye Çağrısı",
+            text: `Bilgileri Hasan'ın cihazına kaydettikten sonra dışarı çıktınız ve acilen Komiser Cemil'i aradınız. Ona tüm planı anlattınız. Cemil, bu kadar büyük bir komplonun olduğuna başta inanamasa da, verdiğiniz detaylar onu harekete geçmeye ikna etti. Büyük bir operasyon başlatıldı.`,
+            next: "ending_massive_raid"
+        },
+        chapter12_heavy_combat: {
+            title: "Bölüm 8 — Şiddetli Çatışma",
+            text: `Başlattığınız ani baskın, şiddetli bir çatışmaya dönüştü. Düşmanlar iyi silahlanmıştı ve direniş gösteriyorlardı. Ekibiniz zorlansa da, Erdoğan'ın liderliği sayesinde üstünlüğü ele geçirdiniz. "Gölge" son bir umutla kaçmaya çalıştı.`,
+            next: "ending_heroic_stand"
+        },
+        chapter12_pursuit_malikane: {
+            title: "Bölüm 8 — Malikânede Kovalamaca",
+            text: `Malikânenin koridorlarında "Gölge"yi takip ettiniz. O, her zaman bir adım öndeydi. Sonunda onu malikânenin çatısında köşeye sıkıştırdınız. Rüzgar uğulduyor, şehrin ışıkları aşağıda parlıyordu.`,
+            choices: [
+                { text: "Gölge'yi yakalamaya çalış.", next: "ending_capture_rooftop" },
+                { text: "Onunla konuşmaya çalış, nedenini öğren.", next: "ending_dialogue_rooftop" }
+            ]
+        },
+        chapter12_reveal_identity: {
+            title: "Bölüm 8 — Gölge'nin Maskesi Düştü",
+            text: `Günlükteki bilgilerle "Gölge"nin kimliğini ifşa ettiniz. O, şehrin eski ve saygın ailelerinden birinin kayıp oğlu, yıllar önce ölen organize suç liderinin öz kardeşiymiş. Geçmişte yaşanan bir haksızlığın intikamını almak için geri dönmüştü. Bu bilgi, tüm şehri şok etti.`,
+            next: "ending_identity_revealed"
+        },
+        chapter12_explore_locations: {
+            title: "Bölüm 8 — Günlükteki Gizemli Yerler",
+            text: `Günlükteki gizli yerleri araştırdınız. Bunlar, "Gölge"nin operasyonlarını sakladığı ve kaynaklarını depoladığı gizli sığınaklardı. Her bir sığınakta kritik bilgiler ve yeni ipuçları buldunuz.`,
+            next: "ending_uncover_network"
+        },
+        chapter12_metro_station: {
+            title: "Bölüm 8 — Metro İstasyonundaki Hesaplaşma",
+            text: `Terse edilmiş metro istasyonuna gittiniz. İçerisi karanlık ve ürkütücüydü. "Gölge"nin adamları her yerdeydi. Burası, onun son operasyon merkeziydi.`,
+            next: "ending_metro_showdown"
+        },
+        chapter12_other_marks: {
+            title: "Bölüm 8 — Haritanın Son Sırları",
+            text: `Haritalardaki diğer işaretleri incelediniz. Bunlar, "Gölge"nin gelecekteki hedeflerini gösteriyordu: şehrin finans merkezi, belediye binası ve polis merkezi. Büyük bir koordineli saldırı planlıyordu.`,
+            next: "ending_imminent_attack"
+        },
+        chapter12_warehouse_raid: {
+            title: "Bölüm 8 — Depo Baskını",
+            text: `Malikânenin tünelinden çıkan lideri takip edip depoya baskın düzenlediniz. İçeride "Gölge" ve kalan adamları vardı. Son bir çatışma yaşandı.`,
+            next: "ending_depot_climax"
+        },
+        chapter12_call_reinforcements: {
+            title: "Bölüm 8 — Takviye Çağrısı",
+            text: `Lideri takip ederken Hasan'dan destek çağırmasını istediniz. Kısa süre sonra polis ekipleri depoyu sardı. "Gölge" ve adamları kuşatıldı.`,
+            next: "ending_surrender"
+        },
+        chapter12_secure_data: {
+            title: "Bölüm 8 — Veri Güvencesi",
+            text: `Ele geçirdiğiniz tüm veriler Hasan tarafından analiz edildi. "Gölge"nin kimliği, bağlantıları ve tüm planları gün yüzüne çıktı. Bu, şehir tarihinin en büyük suç ağıydı.`,
+            next: "ending_data_victory"
+        },
+        chapter12_shipyard: {
+            title: "Bölüm 8 — Tersanedeki Karşılaşma",
+            text: `Aldığınız bilgiyle eski tersaneye gittiniz. "Gölge" sizi bekliyordu. Son bir yüzleşme yaşandı.`,
+            next: "ending_shipyard_duel"
+        },
+        chapter12_cyber_defense: {
+            title: "Bölüm 8 — Siber Savunma",
+            text: `"Gölge"nin siber saldırısını durdurmak için Hasan hızlıca harekete geçti. Finans merkezinin güvenlik duvarlarını güçlendirdi ve sızma girişimlerini engelledi.`,
+            next: "ending_cyber_victory"
+        },
+        chapter12_evacuate_finance: {
+            title: "Bölüm 8 — Finans Merkezi Tahliyesi",
+            text: `Siber saldırının riskini göze almayarak finans merkezinin tahliyesini başlattınız. Büyük bir panik yaşansa da, can kaybı önlendi.`,
+            next: "ending_evacuation_success"
+        },
+        chapter12_climax: {
+            title: "Bölüm 8 — Nihai Hesaplaşma",
+            text: `"Gölge" ile son bir hesaplaşmaya girdiniz. Bu, sadece bir kavga değil, yılların intikamının ve adaletin savaşıydı.`,
+            next: "ending_epic_climax"
+        },
+        chapter12_water_sabotage_intervention: {
+            title: "Bölüm 8 — Su Kaynağı Müdahalesi",
+            text: `"Gölge"nin su kaynaklarına sabotaj planını duyunca hemen harekete geçtiniz. Hızla su arıtma tesisine ulaştınız ve sabotaj ekibini durdurdunuz. Hasan, sistemleri eski haline getirdi.`,
+            next: "ending_water_saved"
+        },
+        chapter12_hasan_solution: {
+            title: "Bölüm 8 — Hasan'ın Çözümü",
+            text: `Hasan, "Gölge"nin planını duyduktan sonra dehşete kapıldı ama hızlı düşündü. Su arıtma tesisinin güvenlik kodlarına erişerek, sabotajcıların sistemlere uzaktan müdahalesini engelledi.`,
+            next: "ending_hasan_hero"
+        },
+        chapter12_pursuit_hasan: {
+            title: "Bölüm 8 — Hasan'la Takip",
+            text: `Hasan'ın yardımıyla kaçan "Gölge"yi takip ettiniz. O, malikâneden gizli bir yeraltı tüneliyle kaçıyordu. Tünel, şehrin dışındaki eski bir sığınağa çıkıyordu.`,
+            next: "ending_secret_hideout"
+        },
+        chapter12_solo_wounded_intel: {
+            title: "Bölüm 8 — Yaralı Kahraman",
+            text: `Yaralı olmanıza rağmen ele geçirdiğiniz bilgiler, "Gölge"nin kimliğini ve büyük planlarının bir kısmını ortaya koydu. Bu bilgilerle polisle iletişime geçtiniz.`,
+            next: "ending_solo_information"
+        },
+        chapter12_solo_mastermind_info: {
+            title: "Bölüm 8 — Yalnız Kurtun Keşfi",
+            text: `"Gölge"nin bilgisayarındaki bilgiler, onun aslında şehrin eski bir suç lordunun gizli varisi olduğunu gösterdi. Babasının mirasını devralıp şehri kontrol etmeye çalışıyordu.`,
+            next: "ending_solo_mastermind_exposed"
+        },
+        chapter12_sabotage_silent: {
+            title: "Bölüm 8 — Sessiz Sabotaj Önleme",
+            text: `Enerji santralindeki sabotajı sessizce ve kimseye fark ettirmeden durdurdunuz. "Gölge"nin planı suya düştü ve şehir tehlikeden kurtuldu.`,
+            next: "ending_silent_victory"
+        },
+        chapter12_sabotage_takedown: {
+            title: "Bölüm 8 — Sabotajcıların Etkisiz Hale Getirilmesi",
+            text: `Sabotajcıları etkisiz hale getirdiniz. Çıkan çatışma santralde hasara yol açsa da, büyük bir felaket önlendi.`,
+            next: "ending_takedown_success"
+        },
+        chapter12_plant_assault_climax: {
+            title: "Bölüm 8 — Santraldeki Çatışma",
+            text: `Enerji santralinde büyük bir çatışma yaşandı. "Gölge"nin adamları dirense de, ekibinizin gücü karşısında duramadılar. Santral güvence altına alındı.`,
+            next: "ending_plant_secured"
+        },
+        chapter12_police_victory: {
+            title: "Bölüm 8 — Polisin Zaferi",
+            text: `Komiser Cemil'in ekibiyle birlikte enerji santraline yaptığınız baskın, "Gölge"nin planlarını tamamen bozdu. Sabotajcılar yakalandı ve "Gölge"nin ağının büyük bir kısmı çöktü.`,
+            next: "ending_police_triumph"
+        },
+        chapter12_disable_system: {
+            title: "Bölüm 8 — Sistemi Devre Dışı Bırakma",
+            text: `Hasan, "Gölge"nin şehrin güvenlik sistemlerini ele geçirme girişimini durdurmak için sisteme sızdı ve tüm operasyonu devre dışı bıraktı. Şehir bir felaketten kurtuldu.`,
+            next: "ending_system_disabled"
+        },
+        chapter12_expose_shadow: {
+            title: "Bölüm 8 — Gölge'yi İfşa Etme",
+            text: `Hasan, "Gölge"nin sistemlerine sızarak tüm yasa dışı operasyonlarını ve bağlantılarını kamuoyuna ifşa etti. Bu, tüm şehirde büyük bir yankı uyandırdı ve "Gölge"nin itibarı yerle bir oldu.`,
+            next: "ending_public_exposure"
+        },
+        chapter12_destroy_bioweapon: {
+            title: "Bölüm 8 — Biyolojik Silahın İmhası",
+            text: `Geliştirilen biyolojik silahı güvenli bir şekilde imha ettiniz. Şehir, büyük bir salgın tehlikesinden kurtuldu.`,
+            next: "ending_bioweapon_neutralized"
+        },
+        chapter12_collect_samples: {
+            title: "Bölüm 8 — Numunelerin Analizi",
+            text: `Biyolojik silah numunelerini topladınız ve güvenilir bir uzmana götürdünüz. Numunelerin analizi, "Gölge"nin bu tür silahları nasıl elde ettiğini ve arkasındaki büyük ağı ortaya çıkardı.`,
+            next: "ending_scientific_breakthrough"
+        },
+        chapter12_emergency_declaration: {
+            title: "Bölüm 8 — Acil Durum İlanı",
+            text: `Öğrendiğiniz bilgilerle hemen yetkililere başvurdunuz. Şehirde acil durum ilan edildi. Polis ve özel harekat timleri, planlanan saldırı noktalarına sevk edildi. Büyük bir kaos önlendi.`,
+            next: "ending_emergency_averted"
+        },
+        chapter12_solo_stop_attacks: {
+            title: "Bölüm 8 — Yalnız Kurtun Mücadelesi",
+            text: `Tek başınıza tüm saldırıları durdurmaya çalıştınız. Birçok hayat kurtardınız ancak ağır yaralandınız. Şehir, kahramanınızı asla unutmayacaktı.`,
+            next: "ending_lone_hero"
+        },
+        chapter12_surprise_chase: {
+            title: "Bölüm 8 — Ani Kovalamaca",
+            text: `"Gölge"nin aniden kaçmasıyla malikânede yeni bir kovalamaca başladı. O, sizi şehrin kalabalık sokaklarına çekmeye çalışıyordu.`,
+            next: "ending_city_chase"
+        },
+        chapter12_heroic_stand: {
+            title: "Bölüm 8 — Kahramanca Direniş",
+            text: `Bitkin olmanıza rağmen gösterdiğiniz kahramanca direniş, "Gölge"nin adamlarını şaşırttı. Sonunda, onu köşeye sıkıştırdınız.`,
+            next: "ending_last_stand_victory"
+        },
+        chapter12_record_conversation: {
+            title: "Bölüm 8 — Gizli Kayıt",
+            text: `Gizlice, "Gölge"nin tüm konuşmasını kaydettiniz. Bu kayıtlar, onun tüm suçlarını ve planlarını kanıtlamak için yeterliydi. Kayıtlarla birlikte depodan sessizce ayrıldınız.`,
+            next: "ending_recorded_evidence"
+        },
+        chapter12_raid_meeting: {
+            title: "Bölüm 8 — Depo Baskını",
+            text: `Aniden depoya baskın düzenlediniz. İçerideki gangsterler panikledi ve çatışma başladı. "Gölge" kaosun içinde kaçmayı başardı ama adamlarının çoğu yakalandı.`,
+            next: "ending_raid_capture"
+        },
+        chapter12_capture_lieutenant: {
+            title: "Bölüm 8 — Baş Yardımcının Yakalanması",
+            text: `Banka soygununda "Gölge"nin baş yardımcısını yakaladınız. Sorgulama sırasında, "Gölge"nin asıl saklandığı yeri ve sonraki planını itiraf etti: eski bir su deposu.`,
+            next: "ending_water_depot"
+        },
 
-                Şehirdeki tüm karanlık güçler yok edildi. Efe ve Hasan'ın hikayesi efsane oldu.
+        // SONLAR
+        ending_escape: {
+            title: "SON - Gölgelerden Kaçış",
+            text: `Malikâneden kaçmayı başardınız ancak gölgeler hâlâ peşinizdeydi. Belgeleri güvenli bir yere sakladınız ve planınızı uygulamaya koydunuz.
 
-                "Bu sadece bir zafer değil, yeni bir başlangıç," dedi Erdoğan son sözü olarak.
+            Birkaç gün sonra, medyaya sızdırdığınız bilgiler büyük bir skandal yarattı. Şehirdeki yolsuzluk ağı çöktü ancak bazı gölgeler hâlâ karanlıkta saklanıyordu.
 
-                <div class="ending-text">
-                <strong>👑 NİHAİ ZAFER SONU 👑</strong><br>
-                Mükemmel bir zafer! Tüm zorluklara rağmen karanlık güçleri tamamen yok ettiniz. Şehrin kurtarıcıları olarak tarihe geçtiniz!
-                </div>`,
-                isEnding: true
-            }
-        };
+            Erdoğan, pencereden dışarı bakarken düşündü: "Bu savaş bitti ama gölgeler hiçbir zaman tamamen kaybolmaz. Onları beklemede olacağım."
 
-        function showDeveloper() {
-            document.getElementById('main-menu').style.display = 'none';
-            document.getElementById('developer-info').style.display = 'block';
-            document.getElementById('game-content').style.display = 'none';
+            <div class="ending-text">
+            <strong>🌫️ KAÇIŞ SONU 🌫️</strong><br>
+            Gölgelerden kaçmayı başardınız ancak savaş henüz bitmedi. Erdoğan ve ekibi, şehirdeki adaletsizliği ortaya çıkardı ama bazı sırlar hâlâ karanlıkta saklı kalıyor...
+            </div>`,
+            isEnding: true
+        },
+        ending_evidence: {
+            title: "SON - Dijital Adalet",
+            text: `Dijital kanıtlar sayesinde büyük bir hukuki süreç başladı. Hasan'ın teknoloji uzmanlığı, tüm suçluları yakalamak için kritik oldu.
+
+            Mahkemede sunulan kanıtlar o kadar güçlüydü ki, şehirdeki organize suç şebekesi tamamen çöktü. Erdoğan nihayet emekli olabilirdi.
+
+            "Teknoloji ve adalete olan inancımız bizi buraya getirdi," dedi Erdoğan son röportajında.
+
+            <div class="ending-text">
+            <strong>💾 TEKNOLOJİ SONU 💾</strong><br>
+            Dijital kanıtlar sayesinde adalet sağlandı. Erdoğan, Efe ve Hasan şehri karanlık güçlerden kurtarmayı başardı. Teknoloji ve ekip çalışması zafer kazandı!
+            </div>`,
+            isEnding: true
+        },
+        ending_justice: {
+            title: "SON - Adalet Zafer Kazandı",
+            text: `Son savaşta haklılığı savunan Erdoğan, yolsuz eski emniyet müdürünü alt etmeyi başardı. Çatışma sırasında tüm gerçekler ortaya çıktı.
+
+            Şehirdeki yolsuzluk ağının lideri yakalandı ve adalet tecelli etti. Erdoğan bir kahraman olarak emekli oldu.
+
+            "Adalet her zaman kazanır, sadece bazen biraz zaman alır," dedi Erdoğan.
+
+            <div class="ending-text">
+            <strong>⚖️ ADALET SONU ⚖️</strong><br>
+            Erdoğan cesur duruşuyla adaleti sağladı. Şehirdeki karanlık güçler yok edildi ve barış restore edildi. Gerçek bir kahraman hikayesi!
+            </div>`,
+            isEnding: true
+        },
+        ending_revelation: {
+            title: "SON - Büyük Açığa Çıkarma",
+            text: `Yaralı ekip üyesinin fedakarlığı boşuna gitmedi. Elde edilen belgeler sayesinde şehirdeki en büyük yolsuzluk skandalı ortaya çıktı.
+
+            Onlarca üst düzey yetkili tutuklandı ve şehir yeniden temiz bir yönetim altına girdi. Ekibin cesareti ve dayanışması zafer getirdi.
+
+            <div class="ending-text">
+            <strong>📜 AÇIĞA ÇIKARMA SONU 📜</strong><br>
+            Büyük fedakarlıklar sonucu gerçek ortaya çıktı. Şehirdeki yolsuzluk tamamen temizlendi ve adalet sağlandı. Ekip çalışması mükemmel sonuç verdi!
+            </div>`,
+            isEnding: true
+        },
+        ending_corruption: {
+            title: "SON - Yolsuzluğun Sonu",
+            text: `Belgeler incelendiğinde ortaya çıkan gerçek o kadar şoke ediciydi ki, şehirde büyük bir temizlik hareketi başladı.
+
+            Belediye başkanından polis şefine kadar onlarca kişi tutuklandı. Şehir tarihinin en büyük yolsuzluk davası açıldı.
+
+            Erdoğan, Efe ve Hasan'ın cesaretli çalışması sayesinde şehir yeniden doğdu.
+
+            <div class="ending-text">
+            <strong>🧹 TEMİZLİK SONU 🧹</strong><br>
+            Yolsuzluk ağı tamamen çöktü! Şehir büyük bir temizlik yaşadı ve artık dürüst insanlar yönetiyor. Karanlık günler sona erdi!
+            </div>`,
+            isEnding: true
+        },
+        ending_capture_shadow: {
+            title: "SON - Gölge Yakalandı",
+            text: `Anında müdahaleniz sayesinde "Gölge" ve adamları kaçmayı başaramadı. Yoğun çatışmanın ardından "Gölge"yi canlı yakalamayı başardınız. Sorgulama sonucunda tüm ağının detayları ortaya çıktı. Şehir, büyük bir tehlikeden kurtulmuştu. Erdoğan, görevinin tamamlandığını bilerek huzurlu bir şekilde emekliye ayrıldı.
+
+            <div class="ending-text">
+            <strong>🚨 GÖLGE YAKALANDI 🚨</strong><br>
+            Hızlı ve etkili müdahalenizle "Gölge"yi yakaladınız. Tüm suç ağı çöktü ve şehir huzura kavuştu. Gerçek bir dedektiflik başarısı!
+            </div>`,
+            isEnding: true
+        },
+        ending_massive_raid: {
+            title: "SON - Büyük Operasyon",
+            text: `Komiser Cemil'le işbirliğiniz sayesinde şehir genelinde büyük bir operasyon başlatıldı. "Gölge"nin planladığı tüm saldırılar önlendi ve yüzlerce suçlu yakalandı. Şehrin altyapısı ve güvenliği tamamen restore edildi. Erdoğan, bu büyük zaferin mimarlarından biriydi.
+
+            <div class="ending-text">
+            <strong>💥 BÜYÜK OPERASYON SONU 💥</strong><br>
+            İşbirliğiniz sayesinde büyük bir operasyon başarıyla tamamlandı. Şehirdeki tüm tehditler ortadan kalktı ve adalet yerini buldu. Takım çalışmasının gücü!
+            </div>`,
+            isEnding: true
+        },
+        ending_heroic_stand: {
+            title: "SON - Kahramanca Direniş",
+            text: `Şiddetli çatışmaya rağmen "Gölge"yi köşeye sıkıştırdınız. Son bir hamleyle onu etkisiz hale getirdiniz. Malikânede yaşananlar, şehirdeki yolsuzluğun ve suçun ne kadar derine indiğini gözler önüne serdi. Erdoğan, bu direnişiyle efsaneleşti. Şehir halkı, onu kahraman olarak anacaktı.
+
+            <div class="ending-text">
+            <strong>⚔️ KAHRAMANCA DİRENİŞ SONU ⚔️</strong><br>
+            Zorlu bir mücadeleyle "Gölge"yi alt ettiniz. Şehir, sizin kahramanca direnişiniz sayesinde kurtuldu. Adınız tarihe yazıldı!
+            </div>`,
+            isEnding: true
+        },
+        ending_capture_rooftop: {
+            title: "SON - Çatıdaki Yakalama",
+            text: `Malikânenin çatısında "Gölge"yi kıstırdınız. Uzun bir mücadeleden sonra onu yakalamayı başardınız. Gölge, yakalandığında bile soğukkanlıydı, ancak planları suya düşmüştü. Şehrin kaderi sizin elinizde değişti.
+
+            <div class="ending-text">
+            <strong>🌃 ÇATI KADINININ SONU 🌃</strong><br>
+            Yükseklerde başlayan takip, "Gölge"nin yakalanmasıyla sona erdi. Şehir, gölgelerden kurtuldu ve adalet yerini buldu.
+            </div>`,
+            isEnding: true
+        },
+        ending_dialogue_rooftop: {
+            title: "SON - Çatıdaki Diyalog",
+            text: `"Gölge"yle konuşmaya karar verdiniz. O, size neden bu yola başvurduğunu anlattı: ailesine yapılan haksızlıkların intikamı. Onun hikayesi sizi derinden etkiledi. Ona adaletle hesaplaşması için bir şans verdiniz. İtirafı sayesinde şehirdeki tüm suç ağı ortaya çıktı.
+
+            <div class="ending-text">
+            <strong>🗣️ DİYALOG SONU 🗣️</strong><br>
+            Anlayış ve diyalogla gerçeği ortaya çıkardınız. "Gölge"nin itirafı sayesinde adalet sağlandı ve birçok hayat kurtuldu.
+            </div>`,
+            isEnding: true
+        },
+        ending_identity_revealed: {
+            title: "SON - Maskesiz Gölge",
+            text: `"Gölge"nin gerçek kimliğini ifşa etmeniz, şehirde büyük bir şok dalgası yarattı. Eski ve saygın bir ailenin oğlu olduğu ortaya çıktı. Kamuoyu baskısıyla suç ağının tüm üyeleri adalete teslim edildi. Şehir, yeni bir döneme girdi.
+
+            <div class="ending-text">
+            <strong>🎭 MASKESİZ GÖLGE SONU 🎭</strong><br>
+            "Gölge"nin gerçek kimliği ifşa edildi ve tüm suç ağı çöktü. Şehir, geçmişin gölgelerinden kurtuldu.
+            </div>`,
+            isEnding: true
+        },
+        ending_uncover_network: {
+            title: "SON - Suç Ağının Çöküşü",
+            text: `Günlükteki gizli yerleri araştırarak "Gölge"nin tüm suç ağını ortaya çıkardınız. Sığınaklarda bulunan kanıtlar, tüm bağlantılarını gözler önüne serdi. Büyük bir operasyonla tüm ağ çökertildi. Şehir, yeniden huzura kavuştu.
+
+            <div class="ending-text">
+            <strong>🕸️ SUÇ AĞI SONU 🕸️</strong><br>
+            "Gölge"nin tüm ağı ortaya çıkarıldı ve çökertildi. Şehir, büyük bir felaketten kurtuldu ve adalet yerini buldu.
+            </div>`,
+            isEnding: true
+        },
+        ending_metro_showdown: {
+            title: "SON - Metroda Hesaplaşma",
+            text: `Terk edilmiş metro istasyonunda "Gölge" ve adamlarıyla son bir çatışmaya girdiniz. Bu, karanlık tünellerde nefes kesen bir mücadeleydi. Erdoğan, tüm gücüyle savaşarak "Gölge"yi alt etti ve onu yakaladı. Şehir, bu tehlikeli tehditten kurtuldu.
+
+            <div class="ending-text">
+            <strong>🚇 METRO SONU 🚇</strong><br>
+            Metro istasyonundaki son çatışmada "Gölge"yi yendiniz. Şehir, tünellerin karanlığından kurtuldu ve adalet sağlandı.
+            </div>`,
+            isEnding: true
+        },
+        ending_imminent_attack: {
+            title: "SON - Büyük Saldırı Önleniyor",
+            text: `Haritalardaki bilgileri kullanarak "Gölge"nin planladığı büyük saldırıları önlediniz. Finans merkezi, belediye binası ve polis merkezi güvence altına alındı. "Gölge"nin koordineli saldırısı başarısız oldu ve adamları yakalandı. Şehir, büyük bir felaketten kıl payı kurtuldu.
+
+            <div class="ending-text">
+            <strong>⚠️ SALDIRI ÖNLENDİ ⚠️</strong><br>
+            "Gölge"nin büyük saldırısı engellendi. Şehir, büyük bir felaketten kurtuldu ve barış yeniden sağlandı.
+            </div>`,
+            isEnding: true
+        },
+        ending_depot_climax: {
+            title: "SON - Depoda Final",
+            text: `Depoya yaptığınız baskın, "Gölge" ile son bir hesaplaşmaya dönüştü. Çatışma sırasında "Gölge"yi etkisiz hale getirdiniz. Tüm planları suya düştü ve şehre huzur geri döndü.
+
+            <div class="ending-text">
+            <strong>🏭 DEPO SONU 🏭</strong><br>
+            Depodaki çatışmada "Gölge"yi yendiniz. Şehir, büyük bir tehlikeden kurtuldu ve suç ağı çöktü.
+            </div>`,
+            isEnding: true
+        },
+        ending_surrender: {
+            title: "SON - Kuşatma ve Teslimiyet",
+            text: `Polisin depoyu kuşatmasıyla "Gölge" ve adamları köşeye sıkıştı. Direnişleri boşunaydı ve sonunda teslim olmak zorunda kaldılar. Adalet yerini buldu ve şehir, "Gölge"nin tehdidinden tamamen kurtuldu.
+
+            <div class="ending-text">
+            <strong>👮‍♂️ TESLİMİYET SONU 👮‍♂️</strong><br>
+            Polis operasyonuyla "Gölge" teslim oldu. Şehir, yasal yollarla adaleti sağladı ve suç sona erdi.
+            </div>`,
+            isEnding: true
+        },
+        ending_data_victory: {
+            title: "SON - Veri Zaferi",
+            text: `Ele geçirdiğiniz kapsamlı veriler sayesinde "Gölge"nin tüm ağı ve bağlantıları çözüldü. Bu bilgiler, uluslararası bir operasyonun başlatılmasına yol açtı ve birçok ülke çapında suçlu yakalandı. Erdoğan, bu bilginin gücünü bir kez daha kanıtladı.
+
+            <div class="ending-text">
+            <strong>💾 VERİ ZAFERİ SONU 💾</strong><br>
+            Elde edilen veriler sayesinde büyük bir uluslararası suç ağı çökertildi. Bilginin gücüyle dünya daha güvenli bir yer oldu.
+            </div>`,
+            isEnding: true
+        },
+        ending_shipyard_duel: {
+            title: "SON - Tersanedeki Düello",
+            text: `Eski tersanede "Gölge" ile birebir bir düelloya giriştiniz. Paslı metallerin ve karanlık gölgelerin arasında nefes kesen bir mücadeleydi. Sonunda "Gölge"yi alt ettiniz ve onu adalete teslim ettiniz. Şehirdeki gölgeler nihayet dağıldı.
+
+            <div class="ending-text">
+            <strong>⚓ TERSANE SONU ⚓</strong><br>
+            Tersanedeki düelloda "Gölge"yi yendiniz. Şehir, karanlık gölgelerden kurtuldu ve gerçek adalet sağlandı.
+            </div>`,
+            isEnding: true
+        },
+        ending_cyber_victory: {
+            title: "SON - Siber Savunma Başarısı",
+            text: `Hasan'ın siber savunma yeteneği sayesinde "Gölge"nin finansal sistemi çökertme girişimi başarısız oldu. Şehrin ekonomisi kurtuldu ve "Gölge" büyük bir darbe aldı. Teknoloji, adaletin en güçlü silahı olduğunu kanıtladı.
+
+            <div class="ending-text">
+            <strong>💻 SİBER ZAFER SONU 💻</strong><br>
+            Siber saldırı engellendi ve şehir ekonomisi kurtuldu. Teknoloji, adaletin hizmetinde büyük bir zafer kazandı.
+            </div>`,
+            isEnding: true
+        },
+        ending_evacuation_success: {
+            title: "SON - Başarılı Tahliye",
+            text: `Finans merkezinin başarılı bir şekilde tahliye edilmesiyle "Gölge"nin saldırısı can kaybına yol açmadı. Maddi hasar olsa da, insan hayatı kurtuldu. Bu, halkın güvenliği için yaptığınız en büyük fedakarlıktı.
+
+            <div class="ending-text">
+            <strong>🚧 TAHLİYE SONU 🚧</strong><br>
+            Büyük bir tahliye operasyonuyla can kaybı önlendi. İnsan hayatı her şeyden önemliydi ve siz bunu başardınız.
+            </div>`,
+            isEnding: true
+        },
+        ending_epic_climax: {
+            title: "SON - Destansı Son",
+            text: `"Gölge" ile olan nihai hesaplaşmada, tüm tecrübenizi, cesaretinizi ve zekanızı kullandınız. Uzun ve yorucu bir mücadelenin ardından "Gölge"yi yenmeyi başardınız. Şehir, bu destansı zaferle karanlık günlerini geride bıraktı. Erdoğan, gerçek bir efsane olarak anılacaktı.
+
+            <div class="ending-text">
+            <strong>🌟 DESTANSI SON 🌟</strong><br>
+            Nihai çatışmada "Gölge"yi mağlup ettiniz. Şehir, sizin sayenizde karanlıktan kurtuldu ve adalet zafer kazandı.
+            </div>`,
+            isEnding: true
+        },
+        ending_water_saved: {
+            title: "SON - Kurtarılan Su Kaynağı",
+            text: `"Gölge"nin su sabotajı planını durdurarak şehrin su kaynağını korudunuz. Büyük bir panik ve salgın önlendi. Bu, sessiz ama büyük bir zaferdi. Halkın sağlığı güvence altına alındı.
+
+            <div class="ending-text">
+            <strong>💧 SU KURTARILDI SONU 💧</strong><br>
+            Su kaynakları güvende! "Gölge"nin sabotaj planı suya düştü ve şehir büyük bir salgın tehlikesinden kurtuldu.
+            </div>`,
+            isEnding: true
+        },
+        ending_hasan_hero: {
+            title: "SON - Hasan'ın Kahramanlığı",
+            text: `Hasan'ın hızlı düşünmesi ve teknolojik müdahalesi sayesinde su sabotajı engellendi. Hasan, geçmişiyle yüzleşti ve gerçek bir kahraman olduğunu kanıtladı. Şehir, onun zekası sayesinde büyük bir felaketten kurtuldu.
+
+            <div class="ending-text">
+            <strong>💡 HASAN'IN KAHRAMANLIĞI SONU 💡</strong><br>
+            Hasan'ın dehasıyla şehir büyük bir felaketten kurtuldu. Onun kahramanlığı, herkesin güvenini yeniden kazandı.
+            </div>`,
+            isEnding: true
+        },
+        ending_secret_hideout: {
+            title: "SON - Gizli Sığınakta Son",
+            text: `"Gölge"yi yeraltı tüneliyle eski sığınağına kadar takip ettiniz. Orada, onun tüm operasyonlarını ve gizli sırlarını keşfettiniz. "Gölge" yakalandı ve adalete teslim edildi. Şehirdeki karanlık, bu sığınakta sona erdi.
+
+            <div class="ending-text">
+            <strong>🕵️‍♀️ GİZLİ SIĞINAK SONU 🕵️‍♂️</strong><br>
+            "Gölge"nin gizli sığınağı bulundu ve o yakalandı. Şehirdeki karanlık nihayet sona erdi.
+            </div>`,
+            isEnding: true
+        },
+        ending_solo_information: {
+            title: "SON - Bilginin Gücü (Yaralı)",
+            text: `Yaralı olmanıza rağmen elde ettiğiniz bilgiler, "Gölge"nin kimliğini ve büyük planlarını polisle paylaşmanızı sağladı. Bu bilgiler sayesinde polis, büyük bir operasyon başlatarak suç ağını çökertti. Siz, sessiz bir kahraman oldunuz.
+
+            <div class="ending-text">
+            <strong>🩹 BİLGİ GÜCÜ SONU 🩹</strong><br>
+            Yaralı olsanız da, sağladığınız kritik bilgilerle adalet yerini buldu. Sessiz kahraman olarak anılacaksınız.
+            </div>`,
+            isEnding: true
+        },
+        ending_solo_mastermind_exposed: {
+            title: "SON - Yalnız Kurtun İfşası",
+            text: `Tek başınıza "Gölge"nin bilgisayarına sızarak onun tüm sırlarını ifşa ettiniz. O, şehrin eski suç lordunun varisiydi ve babasının mirasını devralmaya çalışıyordu. Kamuoyuna sızan bu bilgiler, "Gölge"nin çöküşüne yol açtı.
+
+            <div class="ending-text">
+            <strong>👤 YALNIZ KURT SONU 👤</strong><br>
+            Tek başınıza "Gölge"nin kimliğini ifşa ettiniz. Tüm şehir gerçeği öğrendi ve suç imparatorluğu çöktü.
+            </div>`,
+            isEnding: true
+        },
+        ending_silent_victory: {
+            title: "SON - Sessiz Zafer",
+            text: `Enerji santralindeki sabotajı kimseye fark ettirmeden durdurdunuz. Hiçbir çatışma yaşanmadı ve şehir tehlikeden sessizce kurtuldu. Bu, en etkili ve riskli operasyonlarınızdan biriydi.`,
+            isEnding: true
+        },
+        ending_takedown_success: {
+            title: "SON - Başarılı Etkisiz Hale Getirme",
+            text: `Enerji santralindeki sabotajcıları etkisiz hale getirdiniz. Çatışma hasara yol açsa da, büyük bir felaket önlendi. Şehir, eyleminiz sayesinde kurtuldu.`,
+            isEnding: true
+        },
+        ending_plant_secured: {
+            title: "SON - Santral Güvence Altında",
+            text: `Enerji santralinde yaşanan büyük çatışmanın ardından "Gölge"nin adamları tamamen etkisiz hale getirildi. Santral güvence altına alındı ve şehrin enerji akışı normale döndü.`,
+            isEnding: true
+        },
+        ending_police_triumph: {
+            title: "SON - Polisin Zaferi",
+            text: `Komiser Cemil ve ekibiyle birlikte yürüttüğünüz operasyon, enerji santralindeki sabotajı tamamen engelledi. Polis, "Gölge"nin adamlarını yakaladı ve şehir büyük bir güvenlik sorunundan kurtuldu.`,
+            isEnding: true
+        },
+        ending_system_disabled: {
+            title: "SON - Sistem Devre Dışı",
+            text: `Hasan'ın siber müdahalesiyle "Gölge"nin güvenlik sistemlerini ele geçirme girişimi tamamen başarısız oldu. Şehir, teknolojik bir felaketten kurtuldu ve kontrol yeniden ele alındı.`,
+            isEnding: true
+        },
+        ending_public_exposure: {
+            title: "SON - Halkın Gözünde İfşa",
+            text: `Hasan'ın "Gölge"nin tüm operasyonlarını kamuoyuna ifşa etmesiyle büyük bir skandal patlak verdi. Halk, "Gölge"nin gerçek yüzünü gördü ve onun itibarı yerle bir oldu. Adalet, halkın gücüyle sağlandı.`,
+            isEnding: true
+        },
+        ending_bioweapon_neutralized: {
+            title: "SON - Biyolojik Silahın Etkisizleştirilmesi",
+            text: `Geliştirilen biyolojik silahı başarıyla imha ettiniz. Şehir, büyük bir salgın ve korku tehdidinden kurtuldu. Bu, en tehlikeli görevlerinizden biriydi.`,
+            isEnding: true
+        },
+        ending_scientific_breakthrough: {
+            title: "SON - Bilimsel Atılım",
+            text: `Topladığınız numuneler, biyolojik silahın nasıl üretildiğini ve kimler tarafından finanse edildiğini ortaya koydu. Bilimsel kanıtlar sayesinde uluslararası bir soruşturma başlatıldı ve tüm suçlular yakalandı.`,
+            isEnding: true
+        },
+        ending_emergency_averted: {
+            title: "SON - Acil Durum Engellendi",
+            text: `Bilgileriniz sayesinde şehirde acil durum ilan edildi ve tüm saldırılar önlendi. Büyük bir kaos ve can kaybı engellendi. Şehir, liderliğiniz sayesinde güvende kaldı.`,
+            isEnding: true
+        },
+        ending_lone_hero: {
+            title: "SON - Yalnız Kahraman",
+            text: `Tek başınıza tüm saldırıları durdurmaya çalıştınız. Birçok hayat kurtardınız ancak bu mücadelenin bedelini ağır ödediniz. Şehir, adınızı bir kahraman olarak tarihe yazdı.`,
+            isEnding: true
+        },
+        ending_city_chase: {
+            title: "SON - Şehirde Kovalamaca",
+            text: `"Gölge" ile başlayan kovalamaca, şehrin kalabalık sokaklarında devam etti. Sonunda onu halkın gözü önünde yakaladınız. Halk, bu kahramanlığı canlı canlı izledi.`,
+            isEnding: true
+        },
+        ending_last_stand_victory: {
+            title: "SON - Son Direnişin Zaferi",
+            text: `Tüm bitkinliğinize rağmen gösterdiğiniz son direniş, "Gölge"yi yenmenizi sağladı. Onunla olan savaşınızda galip geldiniz ve şehir, sizin sayenizde huzura kavuştu.`,
+            isEnding: true
+        },
+        ending_recorded_evidence: {
+            title: "SON - Kaydedilen Kanıt",
+            text: `Gizlice kaydettiğiniz konuşma, "Gölge"nin tüm suçlarını kanıtlamak için yeterliydi. Bu kayıtlar sayesinde yargı süreci hızlandı ve tüm suçlular adalete teslim edildi.`,
+            isEnding: true
+        },
+        ending_raid_capture: {
+            title: "SON - Baskın ve Yakalamalar",
+            text: `Depoya yaptığınız baskınla "Gölge"nin adamlarının çoğu yakalandı. "Gölge" kaçsa da, onun suç ağının büyük bir kısmı çökertildi.`,
+            isEnding: true
+        },
+        ending_water_depot: {
+            title: "SON - Su Deposunda Final",
+            text: `"Gölge"nin baş yardımcısından aldığınız bilgiyle eski su deposuna gittiniz. Orada, "Gölge"yi ve kalan adamlarını köşeye sıkıştırdınız. Son bir çatışmanın ardından "Gölge" yakalandı.`,
+            isEnding: true
+        },
+        ending_defeat: {
+            title: "OYUN SONU - Yenilgi",
+            text: `Merkez odada düşmanlar tarafından kuşatıldınız. Yaralı ve yorgun olduğunuz için direnişiniz kırıldı. "Gölge"nin zaferi kesindi. Şehir, karanlık güçlerin eline geçti ve bir daha asla eski haline dönemedi. Gölgeler sonsuza dek hüküm sürdü.
+
+            <div class="ending-text">
+            <strong>💀 YENİLGİ SONU 💀</strong><br>
+            "Gölge" kazandı. Şehir karanlığa gömüldü. Bu hikayenin kahramanı olamadınız.
+            </div>`,
+            isEnding: true
+        },
+        ending_failure: {
+            title: "OYUN SONU - Başarısızlık",
+            text: `Malikâneden bilgi alamadan kaçtığınız için "Gölge"nin operasyonları hız kesmeden devam ediyordu. Şehir kaos içindeydi. Sizin hatanız yüzünden birçok masum insan zarar gördü ve "Gölge"nin etkisi her geçen gün arttı. Pişmanlıklarınızla yaşamak zorundaydınız.
+
+            <div class="ending-text">
+            <strong>💔 BAŞARISIZLIK SONU 💔</strong><br>
+            Bilgi eksikliği ve zaman kaybı yüzünden "Gölge" kazandı. Şehir acı çekiyor ve siz vicdan azabıyla yaşıyorsunuz.
+            </div>`,
+            isEnding: true
+        },
+        ending_too_late: {
+            title: "OYUN SONU - Çok Geç",
+            text: `Deponun dışında destek beklerken çok geç kaldınız. İçeriden patlama sesleri duyuldu ve "Gölge"nin adamları hızla kaçtı. Şehrin bankaları soyuldu ve büyük bir kargaşa yaşandı. "Gölge" planını başarıyla tamamladı ve iz bırakmadan ortadan kayboldu.
+
+            <div class="ending-text">
+            <strong>⏰ ÇOK GEÇ SONU ⏰</strong><br>
+            Destek beklerken zaman kaybettiniz. "Gölge" planını tamamladı ve kaçtı. Şehir büyük bir darbe aldı.
+            </div>`,
+            isEnding: true
         }
 
-        function backToMenu() {
-            document.getElementById('main-menu').style.display = 'block';
-            document.getElementById('developer-info').style.display = 'none';
-            document.getElementById('game-content').style.display = 'none';
+    };
+
+    function showDeveloper() {
+        document.getElementById('main-menu').style.display = 'none';
+        document.getElementById('developer-info').style.display = 'block';
+        document.getElementById('game-content').style.display = 'none';
+    }
+
+    function backToMenu() {
+        document.getElementById('main-menu').style.display = 'block';
+        document.getElementById('developer-info').style.display = 'none';
+        document.getElementById('game-content').style.display = 'none';
+    }
+
+    function startGame() {
+        document.getElementById('main-menu').style.display = 'none';
+        document.getElementById('developer-info').style.display = 'none';
+        document.getElementById('game-content').style.display = 'block';
+
+        showChapter('prolog');
+    }
+
+    function showChapter(chapterName) {
+        const chapter = gameStory[chapterName];
+        if (!chapter) return;
+
+        const storySection = document.getElementById('story-section');
+        const choicesSection = document.getElementById('choices-section');
+
+        let html = '';
+        if (chapter.title) {
+            html += `<div class="chapter-title">${chapter.title}</div>`;
         }
+        html += `<div class="story-text">${chapter.text}</div>`;
 
-        function startGame() {
-            document.getElementById('main-menu').style.display = 'none';
-            document.getElementById('developer-info').style.display = 'none';
-            document.getElementById('game-content').style.display = 'block';
-            
-            showChapter('prolog');
-        }
+        storySection.innerHTML = html;
 
-        function showChapter(chapterName) {
-            const chapter = gameStory[chapterName];
-            if (!chapter) return;
+        // Seçenekleri göster
+        choicesSection.innerHTML = '';
 
-            const storySection = document.getElementById('story-section');
-            const choicesSection = document.getElementById('choices-section');
-
-            let html = '';
-            if (chapter.title) {
-                html += `<div class="chapter-title">${chapter.title}</div>`;
-            }
-            html += `<div class="story-text">${chapter.text}</div>`;
-
-            storySection.innerHTML = html;
-
-            // Seçenekleri göster
-            choicesSection.innerHTML = '';
-            
-            if (chapter.isEnding) {
-                // Oyun sonu - yeniden başlat butonu
-                choicesSection.innerHTML = '<button class="restart-button" onclick="restartGame()">Yeniden Başla</button>';
-            } else if (chapter.choices) {
-                // Seçenekler var
-                chapter.choices.forEach(choice => {
-                    const button = document.createElement('button');
-                    button.className = 'choice-button';
-                    button.textContent = choice.text;
-                    button.onclick = () => showChapter(choice.next);
-                    choicesSection.appendChild(button);
-                });
-            } else if (chapter.next) {
-                // Tek devam seçeneği
+        if (chapter.isEnding) {
+            // Oyun sonu - yeniden başlat butonu
+            choicesSection.innerHTML = '<button class="restart-button" onclick="restartGame()">Yeniden Başla</button>';
+        } else if (chapter.choices) {
+            chapter.choices.forEach(choice => {
                 const button = document.createElement('button');
-                button.className = 'choice-button';
-                button.textContent = 'Devam Et';
-                button.onclick = () => showChapter(chapter.next);
+                button.textContent = choice.text;
+                button.onclick = () => showChapter(choice.next);
                 choicesSection.appendChild(button);
-            }
+            });
+        } else if (chapter.next) {
+            // Tek bir sonraki bölüm varsa devam butonu
+            choicesSection.innerHTML = `<button onclick="showChapter('${chapter.next}')">Devam Et</button>`;
         }
+    }
 
-        function restartGame() {
-            currentChapter = 0;
-            gameState = {};
-            startGame();
-        }
+    function restartGame() {
+        // Oyun durumunu sıfırla
+        currentChapter = 0;
+        gameState = {};
+        // Başlangıç ekranına geri dön
+        backToMenu();
+        // İstersen doğrudan oyunu yeniden başlat: startGame();
+    }
     </script>
 </body>
 </html>
